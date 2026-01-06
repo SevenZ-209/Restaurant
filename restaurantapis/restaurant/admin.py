@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db.models import Count
 from django.template.response import TemplateResponse
 from django.utils.html import mark_safe
-from restaurant.models import Category, Dish, User, Review, Order, Tag
+from restaurant.models import Category, Dish, User, Review, Order, Tag, Like
 from django.urls import path
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -50,7 +50,7 @@ class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ('created_date',)
 
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'dish', 'rating', 'active', 'created_date')
+    list_display = ('id', 'user', 'dish','content', 'rating', 'active', 'created_date')
     list_filter = ('rating', 'active')
     search_fields = ('content', 'user__username', 'dish__name')
 
@@ -72,3 +72,4 @@ admin_site.register(Order, OrderAdmin)
 admin_site.register(Review, ReviewAdmin)
 admin_site.register(User, UserAdmin)
 admin_site.register(Tag)
+admin_site.register(Like)

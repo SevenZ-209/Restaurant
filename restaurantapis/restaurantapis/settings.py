@@ -42,15 +42,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'restaurant.apps.RestaurantConfig',
     'drf_yasg',
     'ckeditor',
-    'restaurant.apps.RestaurantConfig',
     'rest_framework',
     'oauth2_provider'
 ]
 
 REST_FRAMEWORK = {
-
+    'DEFAULT_AUTHENTICATION_CLASSES': ('oauth2_provider.contrib.rest_framework.OAuth2Authentication',)
 }
 
 import cloudinary.api

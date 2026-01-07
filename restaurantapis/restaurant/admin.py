@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db.models import Count
 from django.template.response import TemplateResponse
 from django.utils.html import mark_safe
-from restaurant.models import Category, Dish, User, Review, Order, Tag, Like
+from restaurant.models import Category, Dish, User, Review, Order, Tag, Like, OrderDetail
 from django.urls import path
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -43,11 +43,17 @@ class MyAdminSite(admin.AdminSite):
 
 admin_site = MyAdminSite()
 
+class OrderDetailInline(admin.TabularInline):
+    model = OrderDetail
+    extra = 0
+    readonly_fields = ['unit_price']
+
+
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'dish', 'total_amount', 'payment_method', 'created_date')
-    list_filter = ('payment_method', 'created_date')
-    search_fields = ('user__username', 'dish__name')
+    list_display = ('id', 'user', 'total_amount', 'payment_method', 'status', 'created_date')
+    search_fields = ('user__username',)
     readonly_fields = ('created_date',)
+    inlines = [OrderDetailInline]
 
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'dish','content', 'rating', 'active', 'created_date')

@@ -1,0 +1,399 @@
+
+[
+  {
+    "model": "restaurant.category",
+    "pk": 1,
+    "fields": {
+      "name": "Pizza"
+    }
+  },
+  {
+    "model": "restaurant.category",
+    "pk": 2,
+    "fields": {
+      "name": "Burger"
+    }
+  },
+  {
+    "model": "restaurant.category",
+    "pk": 3,
+    "fields": {
+      "name": "Pasta"
+    }
+  },
+  {
+    "model": "restaurant.user",
+    "pk": 1,
+    "fields": {
+      "password": "1",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "chef1",
+      "first_name": "John",
+      "last_name": "Chef",
+      "email": "chef1@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-01-07T10:00:00Z",
+      "avatar": "",
+      "role": "CHEF"
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 1,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Margherita Pizza",
+      "description": "<p>Classic Italian pizza with fresh mozzarella and basil</p>",
+      "price": "12.99",
+      "ingredients": "Tomato, Mozzarella, Basil, Olive Oil",
+      "image": "",
+      "prepare_time": 15,
+      "category": 1,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 2,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Cheeseburger",
+      "description": "<p>Delicious homemade burger with melted cheese</p>",
+      "price": "9.99",
+      "ingredients": "Beef Patty, Cheese, Lettuce, Tomato, Onion",
+      "image": "",
+      "prepare_time": 12,
+      "category": 2,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 4,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Pepperoni Pizza",
+      "description": "<p>Classic pepperoni pizza with mozzarella cheese</p>",
+      "price": "13.99",
+      "ingredients": "Tomato, Mozzarella, Pepperoni, Olive Oil",
+      "image": "",
+      "prepare_time": 15,
+      "category": 1,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 5,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "BBQ Chicken Pizza",
+      "description": "<p>Delicious pizza with grilled chicken and BBQ sauce</p>",
+      "price": "14.99",
+      "ingredients": "Tomato, Mozzarella, Chicken, BBQ Sauce, Onion",
+      "image": "",
+      "prepare_time": 18,
+      "category": 1,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 6,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Vegetarian Pizza",
+      "description": "<p>Fresh vegetables with ricotta cheese</p>",
+      "price": "11.99",
+      "ingredients": "Tomato, Ricotta, Bell Pepper, Mushroom, Olives",
+      "image": "",
+      "prepare_time": 14,
+      "category": 1,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 7,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Double Cheeseburger",
+      "description": "<p>Two beef patties with double cheese</p>",
+      "price": "12.99",
+      "ingredients": "2x Beef Patty, 2x Cheese, Lettuce, Tomato",
+      "image": "",
+      "prepare_time": 14,
+      "category": 2,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 8,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Bacon Burger",
+      "description": "<p>Burger with crispy bacon and cheddar cheese</p>",
+      "price": "11.99",
+      "ingredients": "Beef Patty, Bacon, Cheddar Cheese, Lettuce",
+      "image": "",
+      "prepare_time": 13,
+      "category": 2,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 9,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Mushroom Swiss Burger",
+      "description": "<p>Juicy burger with mushrooms and Swiss cheese</p>",
+      "price": "12.49",
+      "ingredients": "Beef Patty, Mushroom, Swiss Cheese, Onion",
+      "image": "",
+      "prepare_time": 14,
+      "category": 2,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 10,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Penne Arrabbiata",
+      "description": "<p>Spicy pasta with tomato and garlic</p>",
+      "price": "12.99",
+      "ingredients": "Penne, Tomato, Garlic, Chili, Parsley",
+      "image": "",
+      "prepare_time": 16,
+      "category": 3,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 11,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Fettuccine Alfredo",
+      "description": "<p>Creamy pasta with rich Alfredo sauce</p>",
+      "price": "13.99",
+      "ingredients": "Fettuccine, Cream, Butter, Parmesan",
+      "image": "",
+      "prepare_time": 18,
+      "category": 3,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 12,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Lasagna Bolognese",
+      "description": "<p>Traditional layered pasta with meat sauce</p>",
+      "price": "15.99",
+      "ingredients": "Pasta Sheets, Ground Beef, Tomato Sauce, Ricotta",
+      "image": "",
+      "prepare_time": 25,
+      "category": 3,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 13,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Hawaiian Pizza",
+      "description": "<p>Pizza with pineapple and ham</p>",
+      "price": "14.49",
+      "ingredients": "Tomato, Mozzarella, Pineapple, Ham",
+      "image": "",
+      "prepare_time": 16,
+      "category": 1,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 14,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Seafood Pizza",
+      "description": "<p>Fresh seafood pizza with shrimp and calamari</p>",
+      "price": "16.99",
+      "ingredients": "Tomato, Mozzarella, Shrimp, Calamari, Garlic",
+      "image": "",
+      "prepare_time": 20,
+      "category": 1,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 15,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Spicy Burger",
+      "description": "<p>Burger with jalapeño and spicy sauce</p>",
+      "price": "10.99",
+      "ingredients": "Beef Patty, Jalapeño, Spicy Sauce, Lettuce",
+      "image": "",
+      "prepare_time": 12,
+      "category": 2,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 16,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Veggie Burger",
+      "description": "<p>Plant-based burger with fresh vegetables</p>",
+      "price": "9.49",
+      "ingredients": "Veggie Patty, Lettuce, Tomato, Avocado, Sprouts",
+      "image": "",
+      "prepare_time": 11,
+      "category": 2,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 17,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Pesto Pasta",
+      "description": "<p>Fresh pasta with basil pesto sauce</p>",
+      "price": "13.49",
+      "ingredients": "Spaghetti, Basil, Pine Nuts, Garlic, Parmesan",
+      "image": "",
+      "prepare_time": 15,
+      "category": 3,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 18,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Seafood Pasta",
+      "description": "<p>Pasta with shrimp and clams in white wine</p>",
+      "price": "16.49",
+      "ingredients": "Spaghetti, Shrimp, Clams, White Wine, Garlic",
+      "image": "",
+      "prepare_time": 22,
+      "category": 3,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 19,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Ravioli Spinach",
+      "description": "<p>Cheese and spinach ravioli with cream sauce</p>",
+      "price": "14.49",
+      "ingredients": "Ravioli, Spinach, Ricotta, Cream, Parmesan",
+      "image": "",
+      "prepare_time": 17,
+      "category": 3,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 20,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Truffle Pizza",
+      "description": "<p>Luxury pizza with black truffle and wild mushrooms</p>",
+      "price": "19.99",
+      "ingredients": "Tomato, Mozzarella, Black Truffle, Mushrooms",
+      "image": "",
+      "prepare_time": 18,
+      "category": 1,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 21,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Wagyu Burger",
+      "description": "<p>Premium burger with Japanese wagyu beef</p>",
+      "price": "18.99",
+      "ingredients": "Wagyu Beef, Foie Gras, Truffle Sauce, Brioche",
+      "image": "",
+      "prepare_time": 15,
+      "category": 2,
+      "chef": 1
+    }
+  },
+  {
+    "model": "restaurant.dish",
+    "pk": 22,
+    "fields": {
+      "active": true,
+      "created_date": "2026-01-07T10:00:00Z",
+      "updated_date": "2026-01-07T10:00:00Z",
+      "name": "Osso Buco Pasta",
+      "description": "<p>Braised veal shank pasta with tomato</p>",
+      "price": "17.99",
+      "ingredients": "Pappardelle, Veal Shank, Tomato, Vegetables",
+      "image": "",
+      "prepare_time": 30,
+      "category": 3,
+      "chef": 1
+    }
+  }
+]

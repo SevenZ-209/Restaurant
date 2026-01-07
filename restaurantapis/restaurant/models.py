@@ -1,6 +1,5 @@
 from ckeditor.fields import RichTextField
 from cloudinary.models import CloudinaryField
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -13,6 +12,21 @@ class User(AbstractUser):
 
     avatar = CloudinaryField(null=True)
     role = models.CharField(max_length=10, choices=Role.choices, default=Role.CUSTOMER)
+
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='restaurant_user_set',
+        blank=True,
+        help_text='The groups this user belongs to.',
+        verbose_name='groups',
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='restaurant_user_set',
+        blank=True,
+        help_text='Specific permissions for this user.',
+        verbose_name='user permissions',
+    )
 
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -33,7 +47,9 @@ class Dish(BaseModel):
     description = RichTextField(null=False)
     price = models.DecimalField(max_digits=10, decimal_places=0)
     ingredients = models.TextField()
-    image = CloudinaryField(null=True)
+    image = models.ImageField(upload_to='restaurant/%Y/%m', null=True)
+    # Estimated preparation time in minutes
+    prepare_time = models.IntegerField(default=15)
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     chef = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'role': 'CHEF'})
@@ -59,18 +75,14 @@ class Interaction(BaseModel):
 
 class Review(Interaction):
     content = models.TextField(blank=False, null=False)
-    rating = models.IntegerField(
-        default=5,
-        validators=[
-            MinValueValidator(1),
-            MaxValueValidator(5)
-        ]
-    )
+    rating = models.IntegerField(default=5)
+
     class Meta:
         unique_together = ('user', 'dish')
 
     def __str__(self):
         return f"{self.user.username} - {self.dish.name} ({self.rating} sao)"
+
 
 class Like(Interaction):
     class Meta:

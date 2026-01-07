@@ -147,6 +147,9 @@ venv.bak/
 # GitHub (internal files)
 .github/
 
+# Expo
+.expo/
+
 # Spyder project settings
 .spyderproject
 .spyproject

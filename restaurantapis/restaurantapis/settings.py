@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'drf_yasg',
     'ckeditor',
     'rest_framework',
-    'oauth2_provider'
+    'oauth2_provider',
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
@@ -63,6 +64,7 @@ CKEDITOR_UPLOAD_PATH = "images/ckeditors/"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -98,8 +100,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'restaurant',
         'USER': 'root',
-        'PASSWORD': '1',
-        'HOST': ''
+        'PASSWORD': 'Nghia2005',
+        'HOST': 'localhost'
     }
 }
 
@@ -175,3 +177,10 @@ JAZZMIN_SETTINGS = {
 
     "show_ui_builder": True,
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3001",
+]

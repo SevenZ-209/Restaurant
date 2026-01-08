@@ -1,0 +1,222 @@
+import { StyleSheet } from 'react-native';
+
+const AuthStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F5F5F5',
+  },
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    paddingVertical: 40,
+    paddingHorizontal: 16,
+  },
+  wrapper: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 32,
+    maxWidth: 500,
+    alignSelf: 'center',
+    width: '100%',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: '700',
+    color: '#1A1A1A',
+    marginBottom: 12,
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 14,
+    color: '#666666',
+    textAlign: 'center',
+    marginBottom: 28,
+  },
+  formGroup: {
+    marginBottom: 12,
+  },
+  inputLabel: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#333333',
+    marginBottom: 8,
+  },
+  input: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#D0D0D0',
+    fontSize: 14,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    color: '#1A1A1A',
+  },
+  inputFocused: {
+    borderColor: '#FF6B35',
+    backgroundColor: '#FFFBF8',
+  },
+  inputContainer: {
+    position: 'relative',
+  },
+  passwordToggle: {
+    position: 'absolute',
+    right: 12,
+    top: 12,
+  },
+  passwordToggleText: {
+    fontSize: 12,
+    color: '#666666',
+    fontWeight: '500',
+  },
+  helpText: {
+    fontSize: 12,
+    color: '#888888',
+    marginTop: 6,
+    fontWeight: '400',
+  },
+  button: {
+    marginTop: 24,
+    paddingVertical: 12,
+    backgroundColor: '#999999',
+    borderRadius: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonActive: {
+    backgroundColor: '#FF6B35',
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '600',
+  },
+  buttonDisabled: {
+    backgroundColor: '#CCCCCC',
+  },
+  errorText: {
+    color: '#D32F2F',
+    fontSize: 13,
+    fontWeight: '500',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  successText: {
+    color: '#4CAF50',
+    fontSize: 13,
+    fontWeight: '500',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  linkSection: {
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  linkText: {
+    fontSize: 12,
+    color: '#666666',
+    textDecorationLine: 'underline',
+  },
+  divider: {
+    marginVertical: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  dividerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#E0E0E0',
+  },
+  dividerText: {
+    marginHorizontal: 12,
+    color: '#999999',
+    fontSize: 13,
+    fontWeight: '500',
+  },
+  socialSection: {
+    marginTop: 24,
+  },
+  socialText: {
+    fontSize: 13,
+    color: '#666666',
+    textAlign: 'center',
+    marginBottom: 16,
+    fontWeight: '500',
+  },
+  socialButtons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 12,
+  },
+  socialButton: {
+    borderWidth: 1,
+    borderColor: '#D0D0D0',
+    borderRadius: 6,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  socialButtonText: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#1A1A1A',
+  },
+  footerLink: {
+    marginTop: 24,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  footerText: {
+    fontSize: 13,
+    color: '#666666',
+  },
+  footerLinkButton: {
+    fontSize: 13,
+    color: '#0066CC',
+    fontWeight: '600',
+    marginLeft: 4,
+    textDecorationLine: 'underline',
+  },
+  newUserSection: {
+    marginTop: 32,
+    paddingTop: 24,
+    borderTopWidth: 1,
+    borderTopColor: '#E0E0E0',
+    alignItems: 'center',
+  },
+  newUserText: {
+    fontSize: 13,
+    color: '#666666',
+    marginBottom: 12,
+  },
+  createAccountButton: {
+    borderWidth: 1,
+    borderColor: '#D0D0D0',
+    borderRadius: 6,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    width: '100%',
+    alignItems: 'center',
+  },
+  createAccountButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#1A1A1A',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+
+export default AuthStyle;

@@ -1,11 +1,11 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import AuthStyle from "./AuthStyle";
 import { TextInput, ActivityIndicator } from "react-native-paper";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { MyUserContext } from "../../utils/MyContexts";
+import { MyUserContext } from "../../../utils/MyContexts";
 
 const Login = ({ route }) => {
     const [user, setUser] = useState({});
@@ -16,6 +16,12 @@ const Login = ({ route }) => {
     const [hoveredButton, setHoveredButton] = useState(null);
     const nav = useNavigation();
     const [, dispatch] = useContext(MyUserContext);
+    const [canGoBack, setCanGoBack] = useState(false);
+
+    useEffect(() => {
+        // Check if there's a previous screen to go back to
+        setCanGoBack(nav.canGoBack());
+    }, [nav]);
 
     const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
@@ -65,7 +71,8 @@ const Login = ({ route }) => {
                             "payload": userRes.data
                         });
 
-                        nav.navigate('HomeTab');
+                        // Close the login modal and return to home page
+                        nav.goBack();
                     } catch (ex) {
                         setErrMsg("Login successful but failed to fetch user info!");
                         console.info(ex);
@@ -88,18 +95,20 @@ const Login = ({ route }) => {
                 showsVerticalScrollIndicator={false}
             >
                 <View style={AuthStyle.wrapper}>
-                    {/* Back Button */}
-                    <TouchableOpacity 
-                        style={{ 
-                            marginBottom: 24,
-                            opacity: hoveredButton === 'back' ? 0.6 : 1
-                        }}
-                        onPress={() => nav.goBack()}
-                        onMouseEnter={() => setHoveredButton('back')}
-                        onMouseLeave={() => setHoveredButton(null)}
-                    >
-                        <Text style={{ fontSize: 24 }}>←</Text>
-                    </TouchableOpacity>
+                    {/* Back Button - Only show if there's a previous screen */}
+                    {canGoBack && (
+                        <TouchableOpacity 
+                            style={{ 
+                                marginBottom: 24,
+                                opacity: hoveredButton === 'back' ? 0.6 : 1
+                            }}
+                            onPress={() => nav.goBack()}
+                            onMouseEnter={() => setHoveredButton('back')}
+                            onMouseLeave={() => setHoveredButton(null)}
+                        >
+                            <Text style={{ fontSize: 24 }}>←</Text>
+                        </TouchableOpacity>
+                    )}
 
                     {/* Title */}
                     <Text style={AuthStyle.title}>Sign in</Text>

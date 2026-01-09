@@ -4,6 +4,7 @@ from django.template.response import TemplateResponse
 from django.utils.html import mark_safe
 from restaurant.models import Category, Dish, User, Review, Order, Tag, Like, OrderDetail
 from django.urls import path
+from oauth2_provider.models import Application, AccessToken, RefreshToken
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
@@ -79,3 +80,7 @@ admin_site.register(Review, ReviewAdmin)
 admin_site.register(User, UserAdmin)
 admin_site.register(Tag)
 admin_site.register(Like)
+
+admin_site.register(Application)
+admin_site.register(AccessToken)
+admin_site.register(RefreshToken)

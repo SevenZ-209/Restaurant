@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useContext } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './store/store';
@@ -12,8 +12,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Home from './screens/Home/Home';
 import About from './screens/About/About';
 import User from './screens/User/User';
-import Login from './screens/User/Login';
-import SignUp from './screens/User/SignUp';
+import Login from './screens/User/auth/Login';
+import SignUp from './screens/User/auth/SignUp';
 
 // Import context
 import { MyUserContext, myUserReducer } from './utils/MyContexts';
@@ -24,6 +24,7 @@ const Tab = createBottomTabNavigator();
 // Custom Header Component
 const TopBar = ({ navigation }) => {
   const [hoveredButton, setHoveredButton] = useState(null);
+  const [user] = useContext(MyUserContext);
 
   return (
     <View style={{
@@ -51,51 +52,64 @@ const TopBar = ({ navigation }) => {
       </Text>
       
       <View style={{ flexDirection: 'row', gap: 12 }}>
-        <TouchableOpacity 
-          style={{
-            paddingVertical: 10,
-            paddingHorizontal: 20,
-            borderRadius: 4,
-            borderWidth: 2,
-            borderColor: '#FF6B35',
-            backgroundColor: '#FFFFFF',
-            opacity: hoveredButton === 'login' ? 0.7 : 1
-          }}
-          onPress={() => navigation.navigate('Login')}
-          onMouseEnter={() => setHoveredButton('login')}
-          onMouseLeave={() => setHoveredButton(null)}
-        >
+        {user ? (
           <Text style={{
-            color: '#FF6B35',
+            color: '#333333',
             fontSize: 14,
             fontWeight: '700',
             letterSpacing: 0.5,
           }}>
-            Login
+            Hello, {user.username}
           </Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity 
-          style={{
-            paddingVertical: 10,
-            paddingHorizontal: 20,
-            borderRadius: 4,
-            backgroundColor: '#FF6B35',
-            opacity: hoveredButton === 'signup' ? 0.85 : 1
-          }}
-          onPress={() => navigation.navigate('SignUp')}
-          onMouseEnter={() => setHoveredButton('signup')}
-          onMouseLeave={() => setHoveredButton(null)}
-        >
-          <Text style={{
-            color: '#FFFFFF',
-            fontSize: 14,
-            fontWeight: '700',
-            letterSpacing: 0.5,
-          }}>
-            Sign Up
-          </Text>
-        </TouchableOpacity>
+        ) : (
+          <>
+            <TouchableOpacity 
+              style={{
+                paddingVertical: 10,
+                paddingHorizontal: 20,
+                borderRadius: 4,
+                borderWidth: 2,
+                borderColor: '#FF6B35',
+                backgroundColor: '#FFFFFF',
+                opacity: hoveredButton === 'login' ? 0.7 : 1
+              }}
+              onPress={() => navigation.navigate('Login')}
+              onMouseEnter={() => setHoveredButton('login')}
+              onMouseLeave={() => setHoveredButton(null)}
+            >
+              <Text style={{
+                color: '#FF6B35',
+                fontSize: 14,
+                fontWeight: '700',
+                letterSpacing: 0.5,
+              }}>
+                Login
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              style={{
+                paddingVertical: 10,
+                paddingHorizontal: 20,
+                borderRadius: 4,
+                backgroundColor: '#FF6B35',
+                opacity: hoveredButton === 'signup' ? 0.85 : 1
+              }}
+              onPress={() => navigation.navigate('SignUp')}
+              onMouseEnter={() => setHoveredButton('signup')}
+              onMouseLeave={() => setHoveredButton(null)}
+            >
+              <Text style={{
+                color: '#FFFFFF',
+                fontSize: 14,
+                fontWeight: '700',
+                letterSpacing: 0.5,
+              }}>
+                Sign Up
+              </Text>
+            </TouchableOpacity>
+          </>
+        )}
       </View>
     </View>
   );
@@ -178,7 +192,16 @@ export default function App() {
       <Provider store={store}>
         <PaperProvider>
           <NavigationContainer>
-            <MainStack />
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+              {/* Home page is always shown first */}
+              <Stack.Screen name="Root" component={HomeTabs} />
+              
+              {/* Login and SignUp screens are modal overlays */}
+              <Stack.Group screenOptions={{ presentation: 'modal' }}>
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="SignUp" component={SignUp} />
+              </Stack.Group>
+            </Stack.Navigator>
           </NavigationContainer>
         </PaperProvider>
       </Provider>

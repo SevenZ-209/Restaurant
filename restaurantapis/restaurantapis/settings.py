@@ -46,11 +46,15 @@ INSTALLED_APPS = [
     'drf_yasg',
     'ckeditor',
     'rest_framework',
-    'oauth2_provider'
+    'oauth2_provider',
+    'corsheaders'
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ('oauth2_provider.contrib.rest_framework.OAuth2Authentication',)
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    )
 }
 
 import cloudinary.api
@@ -61,6 +65,7 @@ cloudinary.config(cloud_name='dgpiotsmt',
 CKEDITOR_UPLOAD_PATH = "images/ckeditors/"
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -175,3 +180,15 @@ JAZZMIN_SETTINGS = {
 
     "show_ui_builder": True,
 }
+
+# CORS Configuration
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8081",
+    "http://localhost:8081",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://192.168.1.39:8081",
+    "http://localhost:19000",
+]
+
+CORS_ALLOW_CREDENTIALS = True

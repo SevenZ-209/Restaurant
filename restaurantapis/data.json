@@ -1,0 +1,1884 @@
+[
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2026-01-04T17:12:50.138Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "6",
+    "object_repr": "test",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2026-01-04T17:12:55.063Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "6",
+    "object_repr": "test",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2026-01-05T09:28:13.717Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "6",
+    "object_repr": "Trà Đào",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2026-01-05T10:56:49.579Z",
+    "user": 1,
+    "content_type": 5,
+    "object_id": "1",
+    "object_repr": "admin",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Avatar\", \"Role\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2026-01-05T13:03:07.065Z",
+    "user": 1,
+    "content_type": 17,
+    "object_id": "1",
+    "object_repr": "Cay",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2026-01-05T13:03:41.680Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "Gỏi Cuốn Tôm Thịt",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Tags\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2026-01-06T04:25:37.959Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "1",
+    "object_repr": "a - Gỏi Cuốn Tôm Thịt (5 sao)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2026-01-06T13:07:55.517Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "3",
+    "object_repr": "a - Bò Beefsteak (5 sao)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2026-01-06T13:08:10.838Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "4",
+    "object_repr": "admin - Súp Cua (5 sao)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2026-01-06T13:10:19.438Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "5",
+    "object_repr": "gordon_ramsay - Trà Đào (5 sao)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2026-01-06T16:35:01.439Z",
+    "user": 1,
+    "content_type": 5,
+    "object_id": "5",
+    "object_repr": "master_chef",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Active\", \"Avatar\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2026-01-06T16:37:54.022Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "2",
+    "object_repr": "Súp Cua",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Chef\", \"Tags\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2026-01-06T17:40:11.270Z",
+    "user": 1,
+    "content_type": 5,
+    "object_id": "6",
+    "object_repr": "daubep",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Active\", \"Avatar\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2026-01-06T18:04:02.613Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "3",
+    "object_repr": "Order 3 by a",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Payment method\", \"Status\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2026-01-06T18:04:31.614Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "Gỏi Cuốn Tôm Thịt",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Chef\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2026-01-06T18:05:57.934Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "4",
+    "object_repr": "Order 4 by a",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Payment method\", \"Status\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2026-01-08T08:38:56.923Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "11",
+    "object_repr": "Cơm Tấm Sườn Bì",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2026-01-08T08:39:00.387Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "10",
+    "object_repr": "Cơm Tấm Sườn Bì",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2026-01-08T08:39:03.762Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "9",
+    "object_repr": "Cơm Tấm Sườn Bì Chả",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2026-01-08T08:39:54.528Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "7",
+    "object_repr": "Combo Hẹn Hò",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2026-01-08T08:40:33.227Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "5",
+    "object_repr": "Combo Đặc Biệt",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2026-01-08T08:40:43.763Z",
+    "user": 1,
+    "content_type": 17,
+    "object_id": "2",
+    "object_repr": "Mặn",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2026-01-08T08:40:46.778Z",
+    "user": 1,
+    "content_type": 17,
+    "object_id": "3",
+    "object_repr": "Ngọt",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2026-01-08T08:41:17.842Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "8",
+    "object_repr": "Cơm Tấm Sườn Bì",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2026-01-08T08:47:50.007Z",
+    "user": 1,
+    "content_type": 5,
+    "object_id": "2",
+    "object_repr": "gordon_ramsay",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2026-01-08T08:47:57.728Z",
+    "user": 1,
+    "content_type": 5,
+    "object_id": "6",
+    "object_repr": "daubep",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2026-01-08T08:48:03.830Z",
+    "user": 1,
+    "content_type": 5,
+    "object_id": "5",
+    "object_repr": "master_chef",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2026-01-08T08:48:36.790Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "Gỏi Cuốn Tôm Thịt",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Tags\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2026-01-08T08:49:38.561Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "Gỏi Cuốn Tôm Thịt",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2026-01-08T08:50:04.939Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "2",
+    "object_repr": "Súp Cua",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2026-01-08T08:50:38.840Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "3",
+    "object_repr": "Bò Beefsteak",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\", \"Tags\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2026-01-08T08:50:59.847Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "4",
+    "object_repr": "Cơm Chiên",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\", \"Tags\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2026-01-08T08:51:39.784Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "5",
+    "object_repr": "Bánh Flan",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Preparation time\", \"Description\", \"Tags\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2026-01-08T08:51:46.797Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "2",
+    "object_repr": "Súp Cua",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Preparation time\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2026-01-08T08:52:03.527Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "Gỏi Cuốn Tôm Thịt",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Preparation time\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2026-01-08T08:52:14.435Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "3",
+    "object_repr": "Bò Beefsteak",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Preparation time\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2026-01-08T08:52:18.317Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "4",
+    "object_repr": "Cơm Chiên",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Preparation time\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2026-01-08T08:52:29.233Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "5",
+    "object_repr": "Bánh Flan",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2026-01-08T08:54:41.689Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "6",
+    "object_repr": "Trà Đào",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Preparation time\", \"Image\", \"Tags\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2026-01-08T08:55:10.494Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "12",
+    "object_repr": "Chả Giò Hải Sản",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 41,
+  "fields": {
+    "action_time": "2026-01-08T09:00:15.567Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "13",
+    "object_repr": "Salad Rong Nho",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 42,
+  "fields": {
+    "action_time": "2026-01-08T09:01:00.073Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "14",
+    "object_repr": "Súp Cua Bắp Mỹ",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 43,
+  "fields": {
+    "action_time": "2026-01-08T09:01:25.710Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "15",
+    "object_repr": "Khoai Tây Chiên Lắc Phô Mai",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 44,
+  "fields": {
+    "action_time": "2026-01-08T09:01:57.150Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "16",
+    "object_repr": "Bò Beefsteak Sốt Tiêu Đen",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 45,
+  "fields": {
+    "action_time": "2026-01-08T09:02:30.655Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "17",
+    "object_repr": "Cá Hồi Áp Chảo Sốt Chanh Dây",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 46,
+  "fields": {
+    "action_time": "2026-01-08T09:02:53.279Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "18",
+    "object_repr": "Mì Ý Carbonara",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 47,
+  "fields": {
+    "action_time": "2026-01-08T09:03:25.947Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "19",
+    "object_repr": "Cơm Sườn Nướng Mật Ong",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 48,
+  "fields": {
+    "action_time": "2026-01-08T09:03:48.790Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "20",
+    "object_repr": "Lẩu Thái Hải Sản (Nhỏ)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 49,
+  "fields": {
+    "action_time": "2026-01-08T09:03:56.022Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "21",
+    "object_repr": "Bánh Flan Caramel",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 50,
+  "fields": {
+    "action_time": "2026-01-08T09:04:16.163Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "22",
+    "object_repr": "Panna Cotta Dâu Tây",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 51,
+  "fields": {
+    "action_time": "2026-01-08T09:05:30.178Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "23",
+    "object_repr": "Chè Khúc Bạch",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 52,
+  "fields": {
+    "action_time": "2026-01-08T09:06:04.222Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "24",
+    "object_repr": "Sữa Chua Nếp Cẩm",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\", \"Tags\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 53,
+  "fields": {
+    "action_time": "2026-01-08T09:06:49.958Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "25",
+    "object_repr": "Trái Cây",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Name\", \"Description\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 54,
+  "fields": {
+    "action_time": "2026-01-08T09:18:17.975Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "26",
+    "object_repr": "Trà Đào Cam Sả",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 55,
+  "fields": {
+    "action_time": "2026-01-08T09:18:58.840Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "27",
+    "object_repr": "Cà Phê Sữa",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Name\", \"Description\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 56,
+  "fields": {
+    "action_time": "2026-01-08T09:19:21.141Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "28",
+    "object_repr": "Sinh Tố Bơ",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 57,
+  "fields": {
+    "action_time": "2026-01-08T09:19:47.225Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "29",
+    "object_repr": "Nước Ép Dưa Hấu",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 58,
+  "fields": {
+    "action_time": "2026-01-08T09:20:05.336Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "30",
+    "object_repr": "Mojito Bạc Hà",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 59,
+  "fields": {
+    "action_time": "2026-01-13T10:57:27.348Z",
+    "user": 1,
+    "content_type": 5,
+    "object_id": "7",
+    "object_repr": "chef_ramsay",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Password\", \"Avatar\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 60,
+  "fields": {
+    "action_time": "2026-01-13T10:58:10.563Z",
+    "user": 1,
+    "content_type": 5,
+    "object_id": "8",
+    "object_repr": "chef_yan",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Password\", \"Avatar\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 61,
+  "fields": {
+    "action_time": "2026-01-13T10:58:37.838Z",
+    "user": 1,
+    "content_type": 5,
+    "object_id": "9",
+    "object_repr": "chef_luke",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Password\", \"Avatar\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 62,
+  "fields": {
+    "action_time": "2026-01-13T11:00:33.018Z",
+    "user": 1,
+    "content_type": 5,
+    "object_id": "7",
+    "object_repr": "chef_ramsay",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "mf84fvac73xr3l39kazc8g2x39yksp93",
+  "fields": {
+    "session_data": ".eJxVjMsOgjAQAP9lz6Zpu2XLcvTuN5Dty6IGEgon478bEg56nZnMG0bZtzruLa_jlGAAA5dfFiQ-83yI9JD5vqi4zNs6BXUk6rRN3ZaUX9ez_RtUaRUGKNl1YnvqQhYnhnSWwoRiErMv7Ek7p5FZY0hcrMHeGhQkkuAjpg4-X9rmN0Y:1vciax:3TGfGX3CpoRyKx_JIiCdUwHHht4aWwURblUgvRfFVOc",
+    "expire_date": "2026-01-19T11:17:55.746Z"
+  }
+},
+{
+  "model": "restaurant.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$shqdGFzjJxe9LAaTY83feA$J4ZNHAwmsu+ep0QACvzeR8wwjqI6bF+tMFvPHd6r6Fs=",
+    "last_login": "2026-01-05T11:17:55.740Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-01-04T17:11:23Z",
+    "avatar": "image/upload/v1767610609/z8bhhyeaoqw1guckenx4.png",
+    "role": "ADMIN",
+    "phone": null,
+    "address": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "restaurant.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$q4SLVxu4H6qkczEd1NKrhD$IM6X2DnALd27aNdeMRjohWcy5n879oszhOj4z8CBGQE=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "a",
+    "first_name": "demo",
+    "last_name": "test",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-06T03:26:00.419Z",
+    "avatar": "image/upload/v1767669969/c0eoiqyodjznpkh75hcj.png",
+    "role": "CUSTOMER",
+    "phone": null,
+    "address": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "restaurant.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$YLMYj0R4hvBm8IzdjOsb5p$8d0JaTqZJHsmcOC1bu67nFP3syFilgqw1qr1xD2HRUA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "b",
+    "first_name": "a",
+    "last_name": "a",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-06T13:13:56.378Z",
+    "avatar": "image/upload/v1767705249/hr4ffq70eiiw7byvmt5k.png",
+    "role": "CUSTOMER",
+    "phone": null,
+    "address": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "restaurant.user",
+  "pk": 7,
+  "fields": {
+    "password": "123",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "chef_ramsay",
+    "first_name": "Gordon",
+    "last_name": "Ramsay",
+    "email": "chef_ramsay@restaurant.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-08T08:47:01Z",
+    "avatar": "image/upload/v1768301846/vddlfdce0oo07014tand.webp",
+    "role": "CHEF",
+    "phone": null,
+    "address": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "restaurant.user",
+  "pk": 8,
+  "fields": {
+    "password": "123",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "chef_yan",
+    "first_name": "Martin",
+    "last_name": "Yan",
+    "email": "chef_yan@restaurant.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-08T08:47:02Z",
+    "avatar": "image/upload/v1768301890/wsposltj11f1ouqyqfhk.jpg",
+    "role": "CHEF",
+    "phone": null,
+    "address": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "restaurant.user",
+  "pk": 9,
+  "fields": {
+    "password": "123",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "chef_luke",
+    "first_name": "Luke",
+    "last_name": "Nguyen",
+    "email": "chef_luke@restaurant.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-08T08:47:02Z",
+    "avatar": "image/upload/v1768301917/rw65cqxc9khgtce7ptnu.jpg",
+    "role": "CHEF",
+    "phone": null,
+    "address": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "restaurant.category",
+  "pk": 1,
+  "fields": {
+    "name": "Khai vị"
+  }
+},
+{
+  "model": "restaurant.category",
+  "pk": 2,
+  "fields": {
+    "name": "Món chính"
+  }
+},
+{
+  "model": "restaurant.category",
+  "pk": 3,
+  "fields": {
+    "name": "Tráng miệng"
+  }
+},
+{
+  "model": "restaurant.category",
+  "pk": 4,
+  "fields": {
+    "name": "Đồ uống"
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 1,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-04T17:35:01.914Z",
+    "updated_date": "2026-01-08T08:52:03.526Z",
+    "preparation_time": 15,
+    "name": "Gỏi Cuốn Tôm Thịt",
+    "description": "<p>Gỏi cuốn tươi.</p>",
+    "price": 45000,
+    "ingredients": "Tôm, Thịt, Bún",
+    "image": "image/upload/v1767862178/yt3vcrovshufy6xnj8cl.jpg",
+    "category": 1,
+    "chef": 7,
+    "tags": [
+      4
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 2,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-04T17:35:01.938Z",
+    "updated_date": "2026-01-08T08:51:46.796Z",
+    "preparation_time": 15,
+    "name": "Súp Cua",
+    "description": "<p>S&uacute;p cua n&oacute;ng hổi.</p>",
+    "price": 55000,
+    "ingredients": "Cua, Bắp, Trứng",
+    "image": "image/upload/v1767862204/y7vb32byunkpwpoe6yk2.jpg",
+    "category": 1,
+    "chef": 8,
+    "tags": [
+      1
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 3,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-04T17:35:01.954Z",
+    "updated_date": "2026-01-08T08:52:14.434Z",
+    "preparation_time": 15,
+    "name": "Bò Beefsteak",
+    "description": "<p>B&ograve; nướng sốt ti&ecirc;u.</p>",
+    "price": 180000,
+    "ingredients": "Bò, Tiêu, Khoai",
+    "image": "image/upload/v1767862238/lstrwhfbzmvmjtvbhk7u.jpg",
+    "category": 2,
+    "chef": 9,
+    "tags": [
+      1
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 4,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-04T17:35:01.968Z",
+    "updated_date": "2026-01-08T08:52:18.316Z",
+    "preparation_time": 15,
+    "name": "Cơm Chiên",
+    "description": "<p>Cơm chi&ecirc;n dương ch&acirc;u.</p>",
+    "price": 85000,
+    "ingredients": "Gạo, Trứng, Lạp xưởng",
+    "image": "image/upload/v1767862258/qmzxoemyj0tmfxgijj97.jpg",
+    "category": 2,
+    "chef": 7,
+    "tags": [
+      4
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 5,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-04T17:35:01.984Z",
+    "updated_date": "2026-01-08T08:52:28.483Z",
+    "preparation_time": 5,
+    "name": "Bánh Flan",
+    "description": "<p>B&aacute;nh flan trứng sữa.</p>",
+    "price": 25000,
+    "ingredients": "Trứng, Sữa",
+    "image": "image/upload/v1767862348/yftxzv4uexpeco90bsaz.jpg",
+    "category": 3,
+    "chef": 8,
+    "tags": [
+      3
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 6,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-04T17:35:02.018Z",
+    "updated_date": "2026-01-08T08:54:41.079Z",
+    "preparation_time": 5,
+    "name": "Trà Đào",
+    "description": "<p>Tr&agrave; đ&agrave;o cam sả.</p>",
+    "price": 35000,
+    "ingredients": "Trà, Đào",
+    "image": "image/upload/v1767862481/nptumva5vlobfxatpyr1.webp",
+    "category": 4,
+    "chef": 9,
+    "tags": [
+      4
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 12,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.553Z",
+    "updated_date": "2026-01-08T08:55:09.177Z",
+    "preparation_time": 24,
+    "name": "Chả Giò Hải Sản",
+    "description": "<p>M&oacute;n Chả Gi&ograve; Hải Sản được chế biến từ T&ocirc;m, cua, khoai m&ocirc;n, thịt heo xay tươi ngon. Thời gian chuẩn bị nhanh ch&oacute;ng.</p>",
+    "price": 60000,
+    "ingredients": "Tôm, cua, khoai môn, thịt heo xay",
+    "image": "image/upload/v1767862509/mxopuvwl48vcuorqikec.jpg",
+    "category": 1,
+    "chef": 7,
+    "tags": [
+      6
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 13,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.590Z",
+    "updated_date": "2026-01-08T09:00:14.772Z",
+    "preparation_time": 20,
+    "name": "Salad Rong Nho",
+    "description": "<p>M&oacute;n Salad Rong Nho được chế biến từ Rong nho, c&agrave; chua bi, x&agrave; l&aacute;ch, sốt m&egrave; rang tươi ngon. Thời gian chuẩn bị nhanh ch&oacute;ng.</p>",
+    "price": 55000,
+    "ingredients": "Rong nho, cà chua bi, xà lách, sốt mè rang",
+    "image": "image/upload/v1767862814/tasm9qhas0ytdaxpveet.jpg",
+    "category": 1,
+    "chef": 8,
+    "tags": [
+      5
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 15,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.634Z",
+    "updated_date": "2026-01-08T09:01:25.082Z",
+    "preparation_time": 27,
+    "name": "Khoai Tây Chiên Lắc Phô Mai",
+    "description": "<p>M&oacute;n Khoai T&acirc;y Chi&ecirc;n Lắc Ph&ocirc; Mai được chế biến từ Khoai t&acirc;y, bột ph&ocirc; mai, bơ tươi ngon. Thời gian chuẩn bị nhanh ch&oacute;ng.</p>",
+    "price": 35000,
+    "ingredients": "Khoai tây, bột phô mai, bơ",
+    "image": "image/upload/v1767862885/wwqkm6o0x67at8mqe1g5.webp",
+    "category": 1,
+    "chef": 7,
+    "tags": [
+      5
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 16,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.656Z",
+    "updated_date": "2026-01-08T09:01:56.048Z",
+    "preparation_time": 10,
+    "name": "Bò Beefsteak Sốt Tiêu Đen",
+    "description": "<p>M&oacute;n B&ograve; Beefsteak Sốt Ti&ecirc;u Đen được chế biến từ Thịt b&ograve; thăn, ti&ecirc;u đen, khoai t&acirc;y nghiền, rau củ tươi ngon. Thời gian chuẩn bị nhanh ch&oacute;ng.</p>",
+    "price": 180000,
+    "ingredients": "Thịt bò thăn, tiêu đen, khoai tây nghiền, rau củ",
+    "image": "image/upload/v1767862916/yfvxo5vpeimmrcr8aiki.jpg",
+    "category": 2,
+    "chef": 8,
+    "tags": [
+      7
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 17,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.678Z",
+    "updated_date": "2026-01-08T09:02:29.729Z",
+    "preparation_time": 10,
+    "name": "Cá Hồi Áp Chảo Sốt Chanh Dây",
+    "description": "<p>M&oacute;n C&aacute; Hồi &Aacute;p Chảo Sốt Chanh D&acirc;y được chế biến từ Phi l&ecirc; c&aacute; hồi, chanh d&acirc;y, măng t&acirc;y, bơ tươi ngon. Thời gian chuẩn bị nhanh ch&oacute;ng.</p>",
+    "price": 220000,
+    "ingredients": "Phi lê cá hồi, chanh dây, măng tây, bơ",
+    "image": "image/upload/v1767862950/qvgthl8wgitsrni8egxh.jpg",
+    "category": 2,
+    "chef": 9,
+    "tags": [
+      1
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 18,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.700Z",
+    "updated_date": "2026-01-08T09:02:52.699Z",
+    "preparation_time": 15,
+    "name": "Mì Ý Carbonara",
+    "description": "<p>M&oacute;n M&igrave; &Yacute; Carbonara được chế biến từ M&igrave; spaghetti, thịt hun kh&oacute;i, kem tươi, trứng, ph&ocirc; mai tươi ngon. Thời gian chuẩn bị nhanh ch&oacute;ng.</p>",
+    "price": 120000,
+    "ingredients": "Mì spaghetti, thịt hun khói, kem tươi, trứng, phô mai",
+    "image": "image/upload/v1767862972/epgxvih55o95pelejdmg.jpg",
+    "category": 2,
+    "chef": 7,
+    "tags": [
+      5
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 19,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.721Z",
+    "updated_date": "2026-01-08T09:03:25.021Z",
+    "preparation_time": 11,
+    "name": "Cơm Sườn Nướng Mật Ong",
+    "description": "<p>M&oacute;n Cơm Sườn Nướng Mật Ong được chế biến từ Sườn cốt lết, mật ong, cơm trắng, đồ chua tươi ngon. Thời gian chuẩn bị nhanh ch&oacute;ng.</p>",
+    "price": 95000,
+    "ingredients": "Sườn cốt lết, mật ong, cơm trắng, đồ chua",
+    "image": "image/upload/v1767863005/wq752zupjeh2ley4wewy.jpg",
+    "category": 2,
+    "chef": 8,
+    "tags": [
+      6
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 20,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.743Z",
+    "updated_date": "2026-01-08T09:03:48.123Z",
+    "preparation_time": 30,
+    "name": "Lẩu Thái Hải Sản (Nhỏ)",
+    "description": "<p>M&oacute;n Lẩu Th&aacute;i Hải Sản (Nhỏ) được chế biến từ T&ocirc;m, mực, ngh&ecirc;u, c&aacute; vi&ecirc;n, rau lẩu, m&igrave; g&oacute;i tươi ngon. Thời gian chuẩn bị nhanh ch&oacute;ng.</p>",
+    "price": 250000,
+    "ingredients": "Tôm, mực, nghêu, cá viên, rau lẩu, mì gói",
+    "image": "image/upload/v1767863028/sxwjvi3motoemh3adw1z.jpg",
+    "category": 2,
+    "chef": 9,
+    "tags": [
+      1
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 22,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.794Z",
+    "updated_date": "2026-01-08T09:04:15.512Z",
+    "preparation_time": 16,
+    "name": "Panna Cotta Dâu Tây",
+    "description": "<p>M&oacute;n Panna Cotta D&acirc;u T&acirc;y được chế biến từ Kem sữa, mứt d&acirc;u t&acirc;y, gelatin tươi ngon. Thời gian chuẩn bị nhanh ch&oacute;ng.</p>",
+    "price": 35000,
+    "ingredients": "Kem sữa, mứt dâu tây, gelatin",
+    "image": "image/upload/v1767863055/j5j7fi8vcps3qtbbdukp.jpg",
+    "category": 3,
+    "chef": 8,
+    "tags": [
+      7
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 23,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.815Z",
+    "updated_date": "2026-01-08T09:05:29.520Z",
+    "preparation_time": 24,
+    "name": "Chè Khúc Bạch",
+    "description": "<p>M&oacute;n Ch&egrave; Kh&uacute;c Bạch được chế biến từ Ph&ocirc; mai, sữa, hạnh nh&acirc;n, vải thiều tươi ngon. Thời gian chuẩn bị nhanh ch&oacute;ng.</p>",
+    "price": 35000,
+    "ingredients": "Phô mai, sữa, hạnh nhân, vải thiều",
+    "image": "image/upload/v1767863129/bie7mnq2r7jhkseioywu.jpg",
+    "category": 3,
+    "chef": 9,
+    "tags": [
+      1
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 24,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.836Z",
+    "updated_date": "2026-01-08T09:06:03.021Z",
+    "preparation_time": 13,
+    "name": "Sữa Chua Nếp Cẩm",
+    "description": "<p>M&oacute;n Sữa Chua Nếp Cẩm được chế biến từ Sữa chua l&ecirc;n men, nếp cẩm, nước cốt dừa tươi ngon. Thời gian chuẩn bị nhanh ch&oacute;ng.</p>",
+    "price": 30000,
+    "ingredients": "Sữa chua lên men, nếp cẩm, nước cốt dừa",
+    "image": "image/upload/v1767863163/u9ii2o0vakkgpyksu3pu.jpg",
+    "category": 3,
+    "chef": 7,
+    "tags": [
+      3
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 25,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.858Z",
+    "updated_date": "2026-01-08T09:06:49.155Z",
+    "preparation_time": 29,
+    "name": "Trái Cây",
+    "description": "<p>M&oacute;n Tr&aacute;i C&acirc;y chế biến từ Dưa hấu, xo&agrave;i, ổi, thơm, nho tươi ngon. Thời gian chuẩn bị nhanh ch&oacute;ng.</p>",
+    "price": 50000,
+    "ingredients": "Dưa hấu, xoài, ổi, thơm, nho",
+    "image": "image/upload/v1767863209/lutbor99plvfbzrbusum.jpg",
+    "category": 3,
+    "chef": 8,
+    "tags": [
+      1
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 27,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.902Z",
+    "updated_date": "2026-01-08T09:18:57.273Z",
+    "preparation_time": 30,
+    "name": "Cà Phê Sữa",
+    "description": "<p>M&oacute;n C&agrave; Ph&ecirc; Sữa được chế biến từ C&agrave; ph&ecirc; phin, sữa đặc, đ&aacute; bi tươi ngon. Thời gian chuẩn bị nhanh ch&oacute;ng.</p>",
+    "price": 29000,
+    "ingredients": "Cà phê phin, sữa đặc, đá bi",
+    "image": "image/upload/v1767863938/pskfy1vu0mx4zhneuu3i.jpg",
+    "category": 4,
+    "chef": 7,
+    "tags": [
+      7
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 28,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.924Z",
+    "updated_date": "2026-01-08T09:19:20.160Z",
+    "preparation_time": 18,
+    "name": "Sinh Tố Bơ",
+    "description": "<p>M&oacute;n Sinh Tố Bơ được chế biến từ Bơ s&aacute;p, sữa tươi, sữa đặc tươi ngon. Thời gian chuẩn bị nhanh ch&oacute;ng.</p>",
+    "price": 50000,
+    "ingredients": "Bơ sáp, sữa tươi, sữa đặc",
+    "image": "image/upload/v1767863960/vc3d5atsv9peqdkw3rf4.jpg",
+    "category": 4,
+    "chef": 8,
+    "tags": [
+      7
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 29,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.947Z",
+    "updated_date": "2026-01-08T09:19:46.478Z",
+    "preparation_time": 12,
+    "name": "Nước Ép Dưa Hấu",
+    "description": "<p>M&oacute;n Nước &Eacute;p Dưa Hấu được chế biến từ Dưa hấu tươi nguy&ecirc;n chất tươi ngon. Thời gian chuẩn bị nhanh ch&oacute;ng.</p>",
+    "price": 35000,
+    "ingredients": "Dưa hấu tươi nguyên chất",
+    "image": "image/upload/v1767863986/c1dwes4geu5ge5fsiv0w.webp",
+    "category": 4,
+    "chef": 9,
+    "tags": [
+      6
+    ]
+  }
+},
+{
+  "model": "restaurant.dish",
+  "pk": 30,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.969Z",
+    "updated_date": "2026-01-08T09:20:04.299Z",
+    "preparation_time": 23,
+    "name": "Mojito Bạc Hà",
+    "description": "<p>M&oacute;n Mojito Bạc H&agrave; được chế biến từ Rượu rum, l&aacute; bạc h&agrave;, chanh, soda tươi ngon. Thời gian chuẩn bị nhanh ch&oacute;ng.</p>",
+    "price": 55000,
+    "ingredients": "Rượu rum, lá bạc hà, chanh, soda",
+    "image": "image/upload/v1767864004/pxviiieixbwdimn8owlz.webp",
+    "category": 4,
+    "chef": 7,
+    "tags": [
+      7
+    ]
+  }
+},
+{
+  "model": "restaurant.tag",
+  "pk": 1,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-05T13:03:07.064Z",
+    "updated_date": "2026-01-05T13:03:07.064Z",
+    "preparation_time": 0,
+    "name": "Cay"
+  }
+},
+{
+  "model": "restaurant.tag",
+  "pk": 2,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:40:43.762Z",
+    "updated_date": "2026-01-08T08:40:43.762Z",
+    "preparation_time": 0,
+    "name": "Mặn"
+  }
+},
+{
+  "model": "restaurant.tag",
+  "pk": 3,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:40:46.778Z",
+    "updated_date": "2026-01-08T08:40:46.778Z",
+    "preparation_time": 0,
+    "name": "Ngọt"
+  }
+},
+{
+  "model": "restaurant.tag",
+  "pk": 4,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.499Z",
+    "updated_date": "2026-01-08T08:46:49.499Z",
+    "preparation_time": 0,
+    "name": "Bestseller"
+  }
+},
+{
+  "model": "restaurant.tag",
+  "pk": 5,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.507Z",
+    "updated_date": "2026-01-08T08:46:49.507Z",
+    "preparation_time": 0,
+    "name": "Chay"
+  }
+},
+{
+  "model": "restaurant.tag",
+  "pk": 6,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.515Z",
+    "updated_date": "2026-01-08T08:46:49.515Z",
+    "preparation_time": 0,
+    "name": "Mới"
+  }
+},
+{
+  "model": "restaurant.tag",
+  "pk": 7,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-08T08:46:49.524Z",
+    "updated_date": "2026-01-08T08:46:49.524Z",
+    "preparation_time": 0,
+    "name": "Đặc biệt"
+  }
+},
+{
+  "model": "restaurant.review",
+  "pk": 1,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T04:25:37.959Z",
+    "updated_date": "2026-01-06T13:06:34.253Z",
+    "preparation_time": 0,
+    "user": 3,
+    "dish": 1,
+    "content": "test",
+    "rating": 5
+  }
+},
+{
+  "model": "restaurant.review",
+  "pk": 2,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T12:51:54.762Z",
+    "updated_date": "2026-01-06T13:06:41.414Z",
+    "preparation_time": 0,
+    "user": 3,
+    "dish": 2,
+    "content": "test",
+    "rating": 5
+  }
+},
+{
+  "model": "restaurant.review",
+  "pk": 3,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T13:07:55.516Z",
+    "updated_date": "2026-01-06T13:07:55.516Z",
+    "preparation_time": 0,
+    "user": 3,
+    "dish": 3,
+    "content": "ngon",
+    "rating": 5
+  }
+},
+{
+  "model": "restaurant.review",
+  "pk": 4,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T13:08:10.837Z",
+    "updated_date": "2026-01-06T13:08:10.837Z",
+    "preparation_time": 0,
+    "user": 1,
+    "dish": 2,
+    "content": "ngon",
+    "rating": 5
+  }
+},
+{
+  "model": "restaurant.review",
+  "pk": 6,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T13:15:30.401Z",
+    "updated_date": "2026-01-06T13:15:30.401Z",
+    "preparation_time": 0,
+    "user": 4,
+    "dish": 3,
+    "content": "test",
+    "rating": 5
+  }
+},
+{
+  "model": "restaurant.review",
+  "pk": 7,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T13:30:32.534Z",
+    "updated_date": "2026-01-06T13:30:32.534Z",
+    "preparation_time": 0,
+    "user": 3,
+    "dish": 4,
+    "content": "ngonqua",
+    "rating": 5
+  }
+},
+{
+  "model": "restaurant.like",
+  "pk": 2,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T15:43:20.236Z",
+    "updated_date": "2026-01-06T15:43:20.236Z",
+    "preparation_time": 0,
+    "user": 4,
+    "dish": 1
+  }
+},
+{
+  "model": "restaurant.order",
+  "pk": 1,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T16:38:02.110Z",
+    "updated_date": "2026-01-06T17:00:57.461Z",
+    "preparation_time": 0,
+    "user": 4,
+    "table": null,
+    "checkin_time": "2026-01-06T18:17:48.398Z",
+    "num_guests": 1,
+    "payment_method": "MOMO",
+    "status": "COMPLETED",
+    "total_amount": 225000
+  }
+},
+{
+  "model": "restaurant.order",
+  "pk": 2,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T17:05:06.220Z",
+    "updated_date": "2026-01-06T17:09:20.388Z",
+    "preparation_time": 0,
+    "user": 3,
+    "table": null,
+    "checkin_time": "2026-01-06T18:17:48.398Z",
+    "num_guests": 1,
+    "payment_method": "UNKNOWN",
+    "status": "CANCELLED",
+    "total_amount": 145000
+  }
+},
+{
+  "model": "restaurant.order",
+  "pk": 3,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T17:10:00.134Z",
+    "updated_date": "2026-01-06T18:04:02.613Z",
+    "preparation_time": 0,
+    "user": 3,
+    "table": null,
+    "checkin_time": "2026-01-06T18:17:48.398Z",
+    "num_guests": 1,
+    "payment_method": "CASH",
+    "status": "COMPLETED",
+    "total_amount": 455000
+  }
+},
+{
+  "model": "restaurant.order",
+  "pk": 4,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T18:05:03.936Z",
+    "updated_date": "2026-01-06T18:05:57.933Z",
+    "preparation_time": 0,
+    "user": 3,
+    "table": null,
+    "checkin_time": "2026-01-06T18:17:48.398Z",
+    "num_guests": 1,
+    "payment_method": "CASH",
+    "status": "COMPLETED",
+    "total_amount": 445000
+  }
+},
+{
+  "model": "restaurant.orderdetail",
+  "pk": 3,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T16:59:11.748Z",
+    "updated_date": "2026-01-06T16:59:11.748Z",
+    "preparation_time": 0,
+    "order": 1,
+    "dish": 1,
+    "quantity": 5,
+    "unit_price": 45000
+  }
+},
+{
+  "model": "restaurant.orderdetail",
+  "pk": 4,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T17:05:06.221Z",
+    "updated_date": "2026-01-06T17:05:06.221Z",
+    "preparation_time": 0,
+    "order": 2,
+    "dish": 1,
+    "quantity": 2,
+    "unit_price": 45000
+  }
+},
+{
+  "model": "restaurant.orderdetail",
+  "pk": 5,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T17:05:06.221Z",
+    "updated_date": "2026-01-06T17:05:06.221Z",
+    "preparation_time": 0,
+    "order": 2,
+    "dish": 2,
+    "quantity": 1,
+    "unit_price": 55000
+  }
+},
+{
+  "model": "restaurant.orderdetail",
+  "pk": 10,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T17:11:37.836Z",
+    "updated_date": "2026-01-06T17:11:37.836Z",
+    "preparation_time": 0,
+    "order": 3,
+    "dish": 2,
+    "quantity": 5,
+    "unit_price": 55000
+  }
+},
+{
+  "model": "restaurant.orderdetail",
+  "pk": 11,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T17:11:37.836Z",
+    "updated_date": "2026-01-06T17:11:37.836Z",
+    "preparation_time": 0,
+    "order": 3,
+    "dish": 3,
+    "quantity": 1,
+    "unit_price": 180000
+  }
+},
+{
+  "model": "restaurant.orderdetail",
+  "pk": 12,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T18:05:03.936Z",
+    "updated_date": "2026-01-06T18:05:03.936Z",
+    "preparation_time": 0,
+    "order": 4,
+    "dish": 1,
+    "quantity": 5,
+    "unit_price": 45000
+  }
+},
+{
+  "model": "restaurant.orderdetail",
+  "pk": 13,
+  "fields": {
+    "active": true,
+    "created_date": "2026-01-06T18:05:03.937Z",
+    "updated_date": "2026-01-06T18:05:03.937Z",
+    "preparation_time": 0,
+    "order": 4,
+    "dish": 2,
+    "quantity": 4,
+    "unit_price": 55000
+  }
+},
+{
+  "model": "oauth2_provider.application",
+  "pk": 1,
+  "fields": {
+    "client_id": "fiv9KML4DDALzE24uLSRgE7wkWKxGH7ebOLYfVVz",
+    "user": 1,
+    "redirect_uris": "",
+    "client_type": "confidential",
+    "authorization_grant_type": "password",
+    "client_secret": "pbkdf2_sha256$1200000$UwCsVTQccGURCq3QEp5ql0$FwkN29FBHeQoQHhtdTLQyNv1TTdJWWqt9jcDLcMHuj4=",
+    "name": "restaurant",
+    "skip_authorization": false,
+    "created": "2026-01-05T11:02:51.957Z",
+    "updated": "2026-01-05T11:02:51.957Z",
+    "algorithm": ""
+  }
+},
+{
+  "model": "oauth2_provider.accesstoken",
+  "pk": 1,
+  "fields": {
+    "user": 3,
+    "source_refresh_token": null,
+    "token": "RfOUmffBfhnxiVbdoAbMy21sFCuDbS",
+    "id_token": null,
+    "application": 1,
+    "expires": "2026-01-06T13:43:18.770Z",
+    "scope": "read write",
+    "created": "2026-01-06T03:43:18.771Z",
+    "updated": "2026-01-06T03:43:18.771Z"
+  }
+},
+{
+  "model": "oauth2_provider.accesstoken",
+  "pk": 2,
+  "fields": {
+    "user": 4,
+    "source_refresh_token": null,
+    "token": "klpuHQJkS0BP2GKBwNaM3t775tk4iI",
+    "id_token": null,
+    "application": 1,
+    "expires": "2026-01-06T23:14:21.031Z",
+    "scope": "read write",
+    "created": "2026-01-06T13:14:21.031Z",
+    "updated": "2026-01-06T13:14:21.031Z"
+  }
+},
+{
+  "model": "oauth2_provider.accesstoken",
+  "pk": 3,
+  "fields": {
+    "user": 1,
+    "source_refresh_token": null,
+    "token": "h8XYHe15NZmhv4S0O1hJ9ZWsDNxY16",
+    "id_token": null,
+    "application": 1,
+    "expires": "2026-01-07T02:29:58.908Z",
+    "scope": "read write",
+    "created": "2026-01-06T16:29:58.908Z",
+    "updated": "2026-01-06T16:29:58.908Z"
+  }
+},
+{
+  "model": "oauth2_provider.accesstoken",
+  "pk": 5,
+  "fields": {
+    "user": 3,
+    "source_refresh_token": null,
+    "token": "UQgBGgisp9Wtpemn3SZ1kjnHew1rZX",
+    "id_token": null,
+    "application": 1,
+    "expires": "2026-01-07T03:03:52.272Z",
+    "scope": "read write",
+    "created": "2026-01-06T17:03:52.272Z",
+    "updated": "2026-01-06T17:03:52.272Z"
+  }
+},
+{
+  "model": "oauth2_provider.refreshtoken",
+  "pk": 1,
+  "fields": {
+    "user": 3,
+    "token": "s3SQYkoGZweaHXSgO7oVpFQikUXzF0",
+    "application": 1,
+    "access_token": 1,
+    "created": "2026-01-06T03:43:18.779Z",
+    "updated": "2026-01-06T03:43:18.779Z",
+    "revoked": null
+  }
+},
+{
+  "model": "oauth2_provider.refreshtoken",
+  "pk": 2,
+  "fields": {
+    "user": 4,
+    "token": "KgE5gYGhVgN4LG6dBvZImqWORE9teq",
+    "application": 1,
+    "access_token": 2,
+    "created": "2026-01-06T13:14:21.038Z",
+    "updated": "2026-01-06T13:14:21.038Z",
+    "revoked": null
+  }
+},
+{
+  "model": "oauth2_provider.refreshtoken",
+  "pk": 3,
+  "fields": {
+    "user": 1,
+    "token": "t9Ji0TCRG4XZQxmgRQXwGGo1tqwPft",
+    "application": 1,
+    "access_token": 3,
+    "created": "2026-01-06T16:29:58.911Z",
+    "updated": "2026-01-06T16:29:58.911Z",
+    "revoked": null
+  }
+},
+{
+  "model": "oauth2_provider.refreshtoken",
+  "pk": 5,
+  "fields": {
+    "user": 3,
+    "token": "fL4tApCCylmUyTAgEwTuosNxRB5A3K",
+    "application": 1,
+    "access_token": 5,
+    "created": "2026-01-06T17:03:52.273Z",
+    "updated": "2026-01-06T17:03:52.273Z",
+    "revoked": null
+  }
+}
+]

@@ -80,7 +80,7 @@ const UserProfile = () => {
                         icon="chef-hat" 
                         style={{ marginBottom: 15, backgroundColor: "orange" }}
                         contentStyle={{ height: 50 }}
-                        onPress={() => Alert.alert("Thông báo", "Tính năng quản lý thực đơn đang phát triển!")} 
+                        onPress={() => navigation.navigate("MyDishes")}
                     >
                         Quản lý thực đơn
                     </Button>

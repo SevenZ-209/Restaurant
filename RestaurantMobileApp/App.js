@@ -15,6 +15,8 @@ import Login from "././screens/User/Login";
 import Register from "././screens/User/Register";
 import UserProfile from "././screens/User/UserProfile";
 import DishDetail from "././screens/Home/DishDetail";
+import MyDishes from "./screens/Chef/MyDishes";
+import DishForm from "./screens/Chef/DishForm";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -57,6 +59,8 @@ const App = () => {
             <Stack.Screen name="DishDetail" component={DishDetail} options={{ title: "Chi tiết món ăn", headerShown: true }} />
             <Stack.Screen name="Login" component={Login} options={{ title: "Đăng nhập", headerShown: true }} />
             <Stack.Screen name="Register" component={Register} options={{ title: "Đăng ký", headerShown: true }} />
+            <Stack.Screen name="MyDishes" component={MyDishes} options={{ title: "Quản lý thực đơn" }} />
+            <Stack.Screen name="DishForm" component={DishForm} options={{ title: "Nhập thông tin món" }} />
 
           </Stack.Navigator>
         </NavigationContainer>

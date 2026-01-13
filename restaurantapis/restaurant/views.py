@@ -5,8 +5,7 @@ from django.db.models import Sum, F
 from django.utils.dateparse import parse_date
 
 from restaurant import serializers, paginators, perms
-from .models import Category, Dish, User, Review, Order, Like, OrderDetail
-
+from .models import Category, Dish, User, Review, Order, Like, OrderDetail, Tag
 
 class CategoryView(viewsets.ViewSet, generics.ListAPIView):
     queryset = Category.objects.all()
@@ -157,6 +156,9 @@ class ReviewView(viewsets.ViewSet, generics.DestroyAPIView):
     serializer_class = serializers.ReviewSerializer
     permission_classes = [perms.ReviewOwner]
 
+class TagView(viewsets.ViewSet, generics.ListAPIView):
+    queryset = Tag.objects.all()
+    serializer_class = serializers.TagSerializer
 
 class OrderView(viewsets.ViewSet, generics.ListCreateAPIView, generics.RetrieveAPIView):
     serializer_class = serializers.OrderSerializer

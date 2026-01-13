@@ -53,10 +53,15 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('oauth2_provider.contrib.rest_framework.OAuth2Authentication',)
 }
 
+import cloudinary
+import cloudinary.uploader
 import cloudinary.api
 cloudinary.config(cloud_name='dgpiotsmt',
                     api_key='641336261286631',
-                    api_secret='9IM8MLY8s6Y4Pj6deAJZv6_FhJU')
+                    api_secret='9IM8MLY8s6Y4Pj6deAJZv6_FhJU',
+                    secure = True,
+                    api_proxy = "http://proxy.server:3128"
+                    )
 
 CKEDITOR_UPLOAD_PATH = "images/ckeditors/"
 

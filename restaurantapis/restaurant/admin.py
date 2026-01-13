@@ -5,6 +5,7 @@ from django.utils.html import mark_safe
 from restaurant.models import Category, Dish, User, Review, Order, Tag, Like, OrderDetail
 from django.urls import path
 from oauth2_provider.models import Application, AccessToken, RefreshToken
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
@@ -65,6 +66,9 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ('id', 'username', 'first_name', 'last_name', 'email', 'role', 'show_avatar', 'is_active')
     list_filter = ('role', 'is_active')
     search_fields = ('username', 'email')
+    fieldsets = BaseUserAdmin.fieldsets + (
+        ('Thông tin bổ sung', {'fields': ('avatar', 'role')}),
+    )
 
     def show_avatar(self, obj):
         if obj.avatar:

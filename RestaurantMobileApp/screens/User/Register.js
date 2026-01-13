@@ -25,20 +25,13 @@ const Register = () => {
 
     // Hàm chọn ảnh đại diện từ thư viện
     const picker = async () => {
-        const { granted } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        const {granted} = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (granted) {
-            const res = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                allowsEditing: true,
-                aspect: [1, 1],
-                quality: 1,
-            });
-            
+            const res = await ImagePicker.launchImageLibraryAsync();
             if (!res.canceled)
-                setUser({ ...user, "avatar": res.assets[0] });
-        } else {
-            Alert.alert("Thông báo", "Bạn cần cấp quyền truy cập thư viện ảnh!");
-        }
+                setUser({...user, "avatar": res.assets[0]});
+        } else
+            Alert.alert("Permission denied!");
     }
 
     // Kiểm tra dữ liệu nhập vào

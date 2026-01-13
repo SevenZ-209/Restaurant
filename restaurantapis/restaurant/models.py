@@ -36,9 +36,10 @@ class Dish(BaseModel):
     description = RichTextField(null=False)
     price = models.IntegerField(help_text="Giá (VNĐ)")
     ingredients = models.TextField()
-    image = CloudinaryField(null=True)
+    image = CloudinaryField(null=True, blank=True)
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    preparation_time = models.IntegerField(null=True, blank=True)
     chef = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'role': 'CHEF'})
     tags = models.ManyToManyField('Tag')
 

@@ -34,8 +34,8 @@ const Login = () => {
             // Django OAuth bắt buộc định dạng form-urlencoded.
             // Ta ghép chuỗi thủ công để đảm bảo không bị lỗi trên Android/iOS.
             
-            const CLIENT_ID = "WBWk96q2vsUQKVAmrdy6KTXYCSGRtiI5e3o703zm"; 
-            const CLIENT_SECRET = "Fa4zuHyhOMwZEqUZUeaHCU16EG9w7f0kdCCzaxdWDCy26vyNJ58dC6aqLmSG25VpKNEolD8gu6mmQanpmGQ5l9Z3HUvSgfxtU791dbk3F8BVUhciQoDtS6gaIFzvO4jm";
+            const CLIENT_ID = "fiv9KML4DDALzE24uLSRgE7wkWKxGH7ebOLYfVVz"; 
+            const CLIENT_SECRET = "pbkdf2_sha256$1200000$UwCsVTQccGURCq3QEp5ql0$FwkN29FBHeQoQHhtdTLQyNv1TTdJWWqt9jcDLcMHuj4=";
 
             const details = {
                 'grant_type': 'password',

@@ -27,7 +27,7 @@ class TagSerializer(serializers.ModelSerializer):
 class DishSerializer(ItemSerializer):
     class Meta:
         model = Dish
-        fields = ['id', 'name', 'price','image' ,'category', 'created_date', 'active']
+        fields = ['id', 'name', 'price', 'description' ,'image' ,'category', 'created_date', 'active', 'ingredients', 'preparation_time', 'tags']
 
 class DishDetailSerializer(DishSerializer):
     tags = TagSerializer(many=True)
@@ -39,7 +39,7 @@ class DishDetailSerializer(DishSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'password', 'avatar', 'role']
+        fields = ['id','first_name', 'last_name', 'username', 'password', 'avatar', 'role']
         extra_kwargs = {
             'password': {'write_only': True},
             'role': {'required': False}

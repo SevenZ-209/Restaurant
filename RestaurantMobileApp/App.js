@@ -2,9 +2,9 @@ import React, { useReducer } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Icon } from "react-native-paper";
+import { Icon, Provider as PaperProvider } from "react-native-paper"; // Import PaperProvider
 
-// --- 1. Import Context & Reducer ---
+// --- Import Context & Reducer ---
 import MyUserReducer from "././reducers/MyUserReducer";
 import { MyUserContext } from "././utils/MyContexts";
 
@@ -14,12 +14,12 @@ import Home from "./screens/Home/Home";
 import Login from "././screens/User/Login";
 import Register from "././screens/User/Register";
 import UserProfile from "././screens/User/UserProfile";
-import DishDetail from "././screens/Home/DishDetail"; // <--- QUAN TRỌNG: File này phải tồn tại
+import DishDetail from "././screens/Home/DishDetail";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-// --- 3. Cấu hình Tab Bar (Thanh dưới cùng) ---
+// --- Cấu hình Tab Bar ---
 const MyTabNavigator = () => {
   return (
     <Tab.Navigator
@@ -27,14 +27,9 @@ const MyTabNavigator = () => {
         headerShown: false,
         tabBarIcon: ({ color, size }) => {
           let iconName = 'circle';
-
-          if (route.name === 'Home') {
-            iconName = 'home';
-          } else if (route.name === 'Profile') {
-            iconName = 'account';
-          }
+          if (route.name === 'Home') iconName = 'home';
+          else if (route.name === 'Profile') iconName = 'account';
           
-          // Dùng Icon của react-native-paper
           return <Icon source={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: 'tomato',
@@ -47,39 +42,25 @@ const MyTabNavigator = () => {
   );
 };
 
-// --- 4. App Chính ---
+// --- App Chính ---
 const App = () => {
   const [user, dispatch] = useReducer(MyUserReducer, null);
 
   return (
     <MyUserContext.Provider value={[user, dispatch]}>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          
-          {/* Màn hình chính (Chứa Tabbar Home & Profile) */}
-          <Stack.Screen name="Main" component={MyTabNavigator} />
+      {/* QUAN TRỌNG: Bọc PaperProvider ở ngoài cùng để Menu/Modal hoạt động */}
+      <PaperProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            
+            <Stack.Screen name="Main" component={MyTabNavigator} />
+            <Stack.Screen name="DishDetail" component={DishDetail} options={{ title: "Chi tiết món ăn", headerShown: true }} />
+            <Stack.Screen name="Login" component={Login} options={{ title: "Đăng nhập", headerShown: true }} />
+            <Stack.Screen name="Register" component={Register} options={{ title: "Đăng ký", headerShown: true }} />
 
-          {/* Các màn hình phụ (Nằm đè lên Tabbar) */}
-          <Stack.Screen 
-            name="DishDetail" 
-            component={DishDetail} 
-            options={{ title: "Chi tiết món ăn", headerShown: true }} 
-          />
-          
-          <Stack.Screen 
-            name="Login" 
-            component={Login} 
-            options={{ title: "Đăng nhập", headerShown: true }} 
-          />
-          
-          <Stack.Screen 
-            name="Register" 
-            component={Register} 
-            options={{ title: "Đăng ký", headerShown: true }} 
-          />
-
-        </Stack.Navigator>
-      </NavigationContainer>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
     </MyUserContext.Provider>
   );
 };

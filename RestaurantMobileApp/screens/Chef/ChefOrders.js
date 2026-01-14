@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, Alert, StyleSheet } from 'react-native';
-import { Card, Text, Button, Badge, List } from 'react-native-paper';
+import { View, FlatList, Alert } from 'react-native';
+import { Card, Button, Badge, List } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { authApi, endpoints } from '../../utils/Apis';
+
+import styles from './ChefOrdersStyles';
 
 const ChefOrders = () => {
     const [orders, setOrders] = useState([]);
@@ -23,13 +25,11 @@ const ChefOrders = () => {
 
     useEffect(() => { loadOrders(); }, []);
 
-    // Hàm đổi trạng thái
     const updateStatus = async (orderId, actionPath) => {
         try {
             const token = await AsyncStorage.getItem("token");
-            // POST /orders/{id}/take-order/ hoặc /ready-order/
             await authApi(token).post(`${endpoints['orders']}${orderId}/${actionPath}/`);
-            loadOrders(); // Tải lại danh sách sau khi đổi trạng thái
+            loadOrders();
         } catch (ex) {
             Alert.alert("Lỗi", "Không thể cập nhật trạng thái.");
         }
@@ -64,16 +64,15 @@ const ChefOrders = () => {
 
     return (
         <View style={styles.container}>
-            <FlatList data={orders} renderItem={renderOrderItem} keyExtractor={item => item.id.toString()}
-                onRefresh={loadOrders} refreshing={loading} />
+            <FlatList 
+                data={orders} 
+                renderItem={renderOrderItem} 
+                keyExtractor={item => item.id.toString()}
+                onRefresh={loadOrders} 
+                refreshing={loading} 
+            />
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: { flex: 1, padding: 10, backgroundColor: '#f0f2f5' },
-    card: { marginBottom: 15, elevation: 4 },
-    badge: { backgroundColor: 'orange', marginRight: 10 }
-});
 
 export default ChefOrders;

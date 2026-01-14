@@ -1,39 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Alert, Image, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
-import { TextInput, Button, Menu, Chip, HelperText } from "react-native-paper"; 
+import { View, Text, Alert, Image, ScrollView, TouchableOpacity } from "react-native";
+import { TextInput, Button, Menu, Chip } from "react-native-paper"; 
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation, useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import MyStyles from "../../styles/MyStyles";
 import Apis, { authApi, endpoints } from "../../utils/Apis";
 
+import styles from './DishFormStyles';
+
 const DishForm = () => {
-    // --- State cơ bản ---
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [image, setImage] = useState(null);
     const [loading, setLoading] = useState(false);
     
-    // --- State mới thêm ---
-    const [ingredients, setIngredients] = useState(""); // Nguyên liệu
-    const [preTime, setPreTime] = useState("");         // Thời gian chuẩn bị
+    const [ingredients, setIngredients] = useState(""); 
+    const [preTime, setPreTime] = useState("");         
     
-    // --- State cho Danh mục & Tags ---
     const [categories, setCategories] = useState([]);
     const [cateId, setCateId] = useState(""); 
     const [cateName, setCateName] = useState("");
     const [showMenu, setShowMenu] = useState(false);
 
-    const [tags, setTags] = useState([]);               // Danh sách tất cả Tag từ Server
-    const [selectedTags, setSelectedTags] = useState([]); // Danh sách ID các Tag đã chọn
+    const [tags, setTags] = useState([]);               
+    const [selectedTags, setSelectedTags] = useState([]); 
 
     const route = useRoute();
     const navigation = useNavigation();
     const dishId = route.params?.dishId;
 
-    // 1. Load dữ liệu ban đầu (Categories & Tags)
     useEffect(() => {
         const loadCommonData = async () => {
             try {
@@ -51,7 +48,6 @@ const DishForm = () => {
         loadCommonData();
     }, []);
 
-    // 2. Load thông tin chi tiết món (Nếu là sửa)
     useEffect(() => {
         const loadDish = async () => {
             if (dishId) {
@@ -62,23 +58,19 @@ const DishForm = () => {
                     setName(d.name);
                     setPrice(d.price.toString());
                     setDescription(d.description);
-                    setImage({ uri: d.image });
                     
                     if (d.image) {
                         setImage({ uri: d.image });
                     }
-                    // Set dữ liệu mới thêm
                     setIngredients(d.ingredients || "");
                     setPreTime(d.preparation_time ? d.preparation_time.toString() : "");
 
-                    // Xử lý Category
                     if (d.category) {
                         let cId = d.category.id ? d.category.id : d.category;
                         setCateId(cId.toString());
                         if (d.category.name) setCateName(d.category.name);
                     }
 
-                    // Xử lý Tags (Backend trả về list object tags -> chuyển thành list ID)
                     if (d.tags && Array.isArray(d.tags)) {
                         setSelectedTags(d.tags.map(t => t.id));
                     }
@@ -90,7 +82,6 @@ const DishForm = () => {
         loadDish();
     }, [dishId]);
 
-    // Cập nhật tên danh mục khi list category load xong
     useEffect(() => {
         if (cateId && categories.length > 0) {
             const found = categories.find(c => c.id.toString() === cateId.toString());
@@ -98,18 +89,14 @@ const DishForm = () => {
         }
     }, [categories, cateId]);
 
-    // --- Hàm xử lý chọn Tag (Toggle) ---
     const toggleTag = (tagId) => {
         if (selectedTags.includes(tagId)) {
-            // Nếu đã chọn -> Bỏ chọn
             setSelectedTags(selectedTags.filter(id => id !== tagId));
         } else {
-            // Nếu chưa chọn -> Thêm vào
             setSelectedTags([...selectedTags, tagId]);
         }
     };
 
-    // --- Hàm chọn ảnh ---
     const pickImage = async () => {
         const { granted } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (!granted) {
@@ -125,8 +112,7 @@ const DishForm = () => {
         } catch (err) { }
     };
 
-    const submit = async () => {
-        // Validation: Kiểm tra các trường quan trọng
+        const submit = async () => {
         if (!name || !price || !cateId || !ingredients || !preTime) {
             Alert.alert("Thiếu thông tin", "Vui lòng nhập đủ: Tên, Giá, Danh mục, Nguyên liệu và Thời gian!");
             return;
@@ -145,20 +131,15 @@ const DishForm = () => {
             formData.append('price', price);
             formData.append('description', description);
             formData.append('category', cateId);
-            
-            // --- Gửi dữ liệu mới ---
             formData.append('ingredients', ingredients);
             formData.append('preparation_time', preTime);
 
-            // Gửi Tags (Vòng lặp để append từng tag ID)
             selectedTags.forEach(id => {
                 formData.append('tags', id); 
             });
 
-            // Logic Active
-            if (!dishId) formData.append('active', 'false'); // Mới -> Chờ duyệt
+            if (!dishId) formData.append('active', 'false');
 
-            // Xử lý ảnh
             if (image && image.uri && !image.uri.startsWith("http")) { 
                 let filename = image.uri.split('/').pop();
                 let match = /\.(\w+)$/.exec(filename);
@@ -188,20 +169,20 @@ const DishForm = () => {
     }
 
     return (
-        <ScrollView contentContainerStyle={{ padding: 20, backgroundColor: 'white', flexGrow: 1 }}>
-            <Text style={[MyStyles.subject, { textAlign: 'center', marginBottom: 20 }]}>
+        <ScrollView contentContainerStyle={styles.container}>
+            <Text style={styles.headerTitle}>
                 {dishId ? "CẬP NHẬT MÓN ĂN" : "THÊM MÓN MỚI"}
             </Text>
 
-            <TextInput label="Tên món *" value={name} onChangeText={setName} style={MyStyles.margin} mode="outlined" />
+            <TextInput label="Tên món *" value={name} onChangeText={setName} style={styles.input} mode="outlined" />
             
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={styles.row}>
                 <TextInput 
                     label="Giá (VNĐ) *" 
                     value={price} 
                     onChangeText={setPrice} 
                     keyboardType="numeric" 
-                    style={[MyStyles.margin, { flex: 1, marginRight: 5 }]} 
+                    style={styles.inputHalfLeft} 
                     mode="outlined" 
                 />
                 <TextInput 
@@ -209,13 +190,12 @@ const DishForm = () => {
                     value={preTime} 
                     onChangeText={setPreTime} 
                     keyboardType="numeric" 
-                    style={[MyStyles.margin, { flex: 1, marginLeft: 5 }]} 
+                    style={styles.inputHalfRight} 
                     mode="outlined" 
                 />
             </View>
 
-            {/* Dropdown chọn danh mục */}
-            <View style={MyStyles.margin}>
+            <View style={styles.dropdownContainer}>
                 <Menu
                     visible={showMenu}
                     onDismiss={() => setShowMenu(false)}
@@ -237,20 +217,19 @@ const DishForm = () => {
                 </Menu>
             </View>
 
-            <TextInput label="Nguyên liệu *" value={ingredients} onChangeText={setIngredients} multiline numberOfLines={2} style={MyStyles.margin} mode="outlined" />
+            <TextInput label="Nguyên liệu *" value={ingredients} onChangeText={setIngredients} multiline numberOfLines={2} style={styles.input} mode="outlined" />
             
-            <TextInput label="Mô tả" value={description} onChangeText={setDescription} multiline numberOfLines={3} style={MyStyles.margin} mode="outlined" />
+            <TextInput label="Mô tả" value={description} onChangeText={setDescription} multiline numberOfLines={3} style={styles.input} mode="outlined" />
 
-            {/* --- KHU VỰC CHỌN TAGS --- */}
-            <Text style={{ fontWeight: "bold", marginTop: 10, marginBottom: 5 }}>Tags (Nhãn):</Text>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 15 }}>
+            <Text style={styles.sectionTitle}>Tags (Nhãn):</Text>
+            <View style={styles.tagContainer}>
                 {tags.map(t => (
                     <Chip 
                         key={t.id} 
                         mode="outlined" 
                         selected={selectedTags.includes(t.id)} 
                         showSelectedCheck={true}
-                        style={{ margin: 4, backgroundColor: selectedTags.includes(t.id) ? '#e3f2fd' : 'white' }}
+                        style={[styles.chip, { backgroundColor: selectedTags.includes(t.id) ? '#e3f2fd' : 'white' }]}
                         onPress={() => toggleTag(t.id)}
                     >
                         {t.name}
@@ -258,22 +237,21 @@ const DishForm = () => {
                 ))}
             </View>
 
-            {/* Khu vực chọn ảnh */}
-            <TouchableOpacity onPress={pickImage} style={{ alignItems: 'center', marginVertical: 15 }}>
+            <TouchableOpacity onPress={pickImage} style={styles.imagePicker}>
                 {image ? (
-                    <Image source={{ uri: image.uri }} style={{ width: 200, height: 150, borderRadius: 10 }} />
+                    <Image source={{ uri: image.uri }} style={styles.image} />
                 ) : (
-                    <View style={{ width: 200, height: 150, backgroundColor: '#f0f0f0', justifyContent: 'center', alignItems: 'center', borderRadius: 10, borderStyle: 'dashed', borderWidth: 1 }}>
-                        <Text style={{ color: 'gray' }}>Chạm để chọn ảnh</Text>
+                    <View style={styles.imagePlaceholder}>
+                        <Text style={styles.imageText}>Chạm để chọn ảnh</Text>
                     </View>
                 )}
             </TouchableOpacity>
 
-            <Button mode="contained" onPress={submit} loading={loading} disabled={loading} style={{ marginTop: 10 }}>
+            <Button mode="contained" onPress={submit} loading={loading} disabled={loading} style={styles.btnSubmit}>
                 {dishId ? "Cập nhật" : "Đăng món"}
             </Button>
 
-            <Button mode="outlined" onPress={() => navigation.goBack()} style={{ marginTop: 10, borderColor: 'red' }} textColor="red">Hủy bỏ</Button>
+            <Button mode="outlined" onPress={() => navigation.goBack()} style={styles.btnCancel} textColor="red">Hủy bỏ</Button>
         </ScrollView>
     );
 };

@@ -4,13 +4,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon, Provider as PaperProvider } from "react-native-paper";
 
-// --- Import Context & Reducer ---
 import MyCartReducer from "./reducers/MyCartReducer";
 import MyUserReducer from "./reducers/MyUserReducer";
 import { MyUserContext, MyCartContext } from "./utils/MyContexts";
 import OrderHistory from "./screens/User/OrderHistory";
 
-// --- Import Các Màn Hình ---
 import Home from "./screens/Home/Home";
 import Login from "./screens/User/Login";
 import Register from "./screens/User/Register";
@@ -21,11 +19,13 @@ import DishForm from "./screens/Chef/DishForm";
 import ChefOrders from "./screens/Chef/ChefOrders";
 import CompareDishes from "./screens/Home/CompareDishes";
 import Cart from "./screens/Cart/Cart"; 
+import ChefStats from "./screens/Chef/ChefStats";
+import AdminStats from "./screens/Admin/AdminStats";
+import AdminOrderList from "./screens/Admin/AdminOrderList";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-// --- Cấu hình Tab Bar ---
 const MyTabNavigator = () => {
   return (
     <Tab.Navigator
@@ -35,7 +35,6 @@ const MyTabNavigator = () => {
           let iconName = 'circle';
           if (route.name === 'Home') iconName = 'home';
           else if (route.name === 'Profile') iconName = 'account';
-          // Có thể thêm icon Cart vào Tabbar nếu thích
           
           return <Icon source={iconName} size={size} color={color} />;
         },
@@ -49,16 +48,13 @@ const MyTabNavigator = () => {
   );
 };
 
-// --- App Chính ---
 const App = () => {
   const [user, dispatch] = useReducer(MyUserReducer, null);
 
-  // 👇 2. KHỞI TẠO STATE GIỎ HÀNG (Mặc định là mảng rỗng [])
   const [cart, cartDispatch] = useReducer(MyCartReducer, []);
 
   return (
     <MyUserContext.Provider value={[user, dispatch]}>
-      {/* 👇 3. BỌC CART PROVIDER VÀO TRONG (Để toàn bộ App dùng được giỏ hàng) */}
       <MyCartContext.Provider value={[cart, cartDispatch]}>
         
         <PaperProvider>
@@ -75,7 +71,9 @@ const App = () => {
               <Stack.Screen name="OrderHistory" component={OrderHistory} options={{ title: "Lịch sử đơn hàng" }} />
               <Stack.Screen name="ChefOrders" component={ChefOrders} options={{ title: "Đơn hàng nhà bếp", headerShown: true }} />
               <Stack.Screen name="CompareDishes" component={CompareDishes} options={{ title: 'So sánh món ăn' }} />
-
+              <Stack.Screen name="ChefStats" component={ChefStats} options={{ title: 'Thống kê doanh thu' }} />
+              <Stack.Screen name="AdminStats" component={AdminStats} options={{ headerShown: false }} />
+              <Stack.Screen name="AdminOrderList" component={AdminOrderList} options={{ headerShown: false }} />
             </Stack.Navigator>
           </NavigationContainer>
         </PaperProvider>

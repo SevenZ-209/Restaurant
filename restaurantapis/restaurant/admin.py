@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db.models import Count
 from django.template.response import TemplateResponse
 from django.utils.html import mark_safe
-from restaurant.models import Category, Dish, User, Review, Order, Tag, Like, OrderDetail
+from restaurant.models import Category, Dish, User, Review, Order, Tag, Like, OrderDetail, Table
 from django.urls import path
 from oauth2_provider.models import Application, AccessToken, RefreshToken
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
@@ -50,6 +50,14 @@ class OrderDetailInline(admin.TabularInline):
     extra = 0
     readonly_fields = ['unit_price']
 
+class TableAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'capacity', 'active')
+
+    list_filter = ['active', 'capacity']
+
+    search_fields = ['name']
+
+    list_editable = ['active']
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'total_amount', 'payment_method', 'status', 'created_date')
@@ -84,7 +92,7 @@ admin_site.register(Review, ReviewAdmin)
 admin_site.register(User, UserAdmin)
 admin_site.register(Tag)
 admin_site.register(Like)
+admin_site.register(Table, TableAdmin)
 
 admin_site.register(Application)
-admin_site.register(AccessToken)
-admin_site.register(RefreshToken)
+

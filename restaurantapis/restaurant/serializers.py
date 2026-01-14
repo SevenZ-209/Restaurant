@@ -13,11 +13,18 @@ class ItemSerializer(serializers.ModelSerializer):
             data['image'] = instance.image.url
         return data
 
-
 class TableSerializer(serializers.ModelSerializer):
+    is_busy = serializers.SerializerMethodField()
+
     class Meta:
         model = Table
-        fields = ['id', 'name', 'capacity', 'active']
+        fields = ['id', 'name', 'capacity', 'active', 'is_busy']
+
+    def get_is_busy(self, obj):
+        return Order.objects.filter(
+            table=obj,
+            status__in=['PENDING', 'CONFIRMED', 'SEATED', 'COOKING', 'READY']
+        ).exists()
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,16 +37,23 @@ class TagSerializer(serializers.ModelSerializer):
         fields =['id', 'name']
 
 class DishSerializer(ItemSerializer):
+    rating = serializers.SerializerMethodField()
     class Meta:
         model = Dish
-        fields = ['id', 'name', 'price', 'description' ,'image' ,'category', 'created_date', 'active', 'ingredients', 'preparation_time', 'tags']
+        fields = ['id', 'name', 'price', 'description' ,'image' ,'category', 'created_date', 'active', 'ingredients', 'preparation_time', 'tags', 'rating']
+    def get_rating(self, obj):
+        reviews = obj.review_set.all()
+
+        if reviews.exists():
+            return sum([r.rating for r in reviews]) / reviews.count()
+
+        return 5.0
 
 class DishDetailSerializer(DishSerializer):
     tags = TagSerializer(many=True)
     class Meta:
         model = Dish
         fields = DishSerializer.Meta.fields + ['description','ingredients' , 'tags']
-
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -118,15 +132,14 @@ class OrderDetailSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-
-    items = OrderDetailSerializer(many=True, write_only=True, source='details',
-                                  required=False)
+    items = OrderDetailSerializer(many=True, write_only=True, source='details', required=False)
     details = OrderDetailSerializer(many=True, read_only=True)
+
 
     class Meta:
         model = Order
-        fields = ['id', 'user', 'table', 'checkin_time', 'num_guests', 'payment_method', 'status', 'total_amount',
-                  'created_date', 'items', 'details']
+        fields = ['id', 'user', 'table', 'checkin_time', 'num_guests', 'payment_method',
+                  'status', 'total_amount', 'created_date', 'items', 'details']
         read_only_fields = ['total_amount', 'status', 'created_date', 'user']
 
     def validate(self, attrs):
@@ -153,15 +166,15 @@ class OrderSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(
                     {"table": f"Bàn {table.name} đã có người đặt vào khung giờ này (hoặc lân cận 2h)."}
                 )
-
         return attrs
 
     def create(self, validated_data):
-        items_data = validated_data.pop('details')
-        user = self.context['request'].user
+        items_data = validated_data.pop('details', [])
+        user = validated_data.pop('user', self.context['request'].user)
 
         with transaction.atomic():
             order = Order.objects.create(user=user, **validated_data)
+
             total = 0
 
             for item in items_data:
@@ -171,47 +184,32 @@ class OrderSerializer(serializers.ModelSerializer):
                 total += price * quantity
 
                 OrderDetail.objects.create(
-                    order=order,
-                    dish=dish,
-                    quantity=quantity,
-                    unit_price=price
+                    order=order, dish=dish, quantity=quantity, unit_price=price
                 )
 
             order.total_amount = total
             order.save()
-
         return order
 
     def update(self, instance, validated_data):
-        # Lấy danh sách món mới gọi thêm (nếu có)
         items_data = validated_data.pop('details', None)
 
         with transaction.atomic():
-            # 1. Cập nhật các thông tin cơ bản khác (bàn, số khách...) nếu có gửi kèm
             instance = super().update(instance, validated_data)
 
             if items_data is not None:
-                # 2. Lấy tổng tiền hiện có của đơn hàng để cộng dồn tiếp
                 total = instance.total_amount or 0
 
                 for item in items_data:
                     dish = item['dish']
                     quantity = item['quantity']
                     price = dish.price
-
-                    # Tính tiền cho phần món gọi thêm
                     total += price * quantity
 
-                    # 3. Tạo chi tiết món mới (OrderDetail) mà KHÔNG xóa cái cũ
                     OrderDetail.objects.create(
-                        order=instance,
-                        dish=dish,
-                        quantity=quantity,
-                        unit_price=price
+                        order=instance, dish=dish, quantity=quantity, unit_price=price
                     )
 
-                # 4. Lưu tổng tiền mới sau khi đã cộng dồn các món gọi thêm
                 instance.total_amount = total
                 instance.save()
-
         return instance

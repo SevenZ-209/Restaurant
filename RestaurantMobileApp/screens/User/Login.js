@@ -4,9 +4,9 @@ import { TextInput, Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import MyStyles from "../../styles/MyStyles";
 import Apis, { endpoints, authApi } from "../../utils/Apis";
 import { MyUserContext } from "../../utils/MyContexts"; 
+import styles from './LoginStyles';
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -27,7 +27,6 @@ const Login = () => {
         Keyboard.dismiss(); 
 
         try {
-
             const CLIENT_ID = "fiv9KML4DDALzE24uLSRgE7wkWKxGH7ebOLYfVVz"; 
             const CLIENT_SECRET = "pbkdf2_sha256$1200000$UwCsVTQccGURCq3QEp5ql0$FwkN29FBHeQoQHhtdTLQyNv1TTdJWWqt9jcDLcMHuj4=";
 
@@ -45,7 +44,6 @@ const Login = () => {
 
             console.info("Đang gửi yêu cầu đăng nhập...");
 
-            // 3. GỌI API LOGIN
             let res = await Apis.post(endpoints['login'], formBody, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
@@ -54,14 +52,11 @@ const Login = () => {
 
             console.info("Login thành công! Token:", res.data.access_token);
 
-            // 4. LƯU TOKEN
             await AsyncStorage.setItem("token", res.data.access_token);
 
-            // 5. LẤY THÔNG TIN USER
             let userRes = await authApi(res.data.access_token).get(endpoints['current-user']);
             console.info("User Info:", userRes.data);
 
-            // 6. CẬP NHẬT CONTEXT & CHUYỂN TRANG
             dispatch({
                 "type": "login",
                 "payload": userRes.data
@@ -91,25 +86,25 @@ const Login = () => {
     }
 
     return (
-        <View style={[MyStyles.container, { padding: 20, justifyContent: 'center', backgroundColor: 'white' }]}>
-            <Text style={[MyStyles.subject, {textAlign: 'center', marginBottom: 40, fontSize: 30, color: "blue"}]}>
+        <View style={styles.container}>
+            <Text style={styles.title}>
                 ĐĂNG NHẬP
             </Text>
 
             <TextInput 
                 value={username} 
                 onChangeText={t => setUsername(t)} 
-                style={[MyStyles.margin, { backgroundColor: 'white' }]}
+                style={styles.input}
                 label="Tên đăng nhập" 
                 mode="outlined"
-                autoCapitalize="none" // Không tự viết hoa ký tự đầu
+                autoCapitalize="none"
                 left={<TextInput.Icon icon="account" />}
             />
             
             <TextInput 
                 value={password} 
                 onChangeText={t => setPassword(t)} 
-                style={[MyStyles.margin, { backgroundColor: 'white' }]}
+                style={styles.input}
                 label="Mật khẩu" 
                 secureTextEntry={!showPassword} 
                 mode="outlined"
@@ -124,22 +119,22 @@ const Login = () => {
             />
 
             {loading ? (
-                <ActivityIndicator size="large" color="blue" style={{ marginTop: 20 }} />
+                <ActivityIndicator size="large" color="blue" style={styles.loading} />
             ) : (
                 <>
                     <Button 
                         mode="contained" 
                         onPress={login} 
-                        style={[MyStyles.margin, { marginTop: 20, paddingVertical: 5 }]}
+                        style={styles.button}
                         labelStyle={{ fontSize: 16 }}
                     >
                         Đăng nhập
                     </Button>
                     
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>
-                        <Text style={{ fontSize: 15 }}>Chưa có tài khoản? </Text>
+                    <View style={styles.footer}>
+                        <Text style={styles.footerText}>Chưa có tài khoản? </Text>
                         <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-                            <Text style={{ color: 'blue', fontWeight: 'bold', fontSize: 15 }}>
+                            <Text style={styles.registerText}>
                                 Đăng ký ngay
                             </Text>
                         </TouchableOpacity>

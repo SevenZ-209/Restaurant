@@ -1,8 +1,10 @@
 from rest_framework import viewsets, generics, permissions, status, parsers
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from django.db.models import Sum, F
+from django.db.models import Sum, F, Count
 from django.utils.dateparse import parse_date
+from django.db.models.functions import TruncDay, TruncMonth, TruncWeek
+from django.utils import timezone
 
 from restaurant import serializers, paginators, perms
 from .models import Category, Dish, User, Review, Order, Like, OrderDetail, Tag, Table
@@ -12,6 +14,7 @@ class CategoryView(viewsets.ViewSet, generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = serializers.CategorySerializer
     permission_classes = [permissions.AllowAny]
+
 
 class TableView(viewsets.ViewSet, generics.ListCreateAPIView, generics.DestroyAPIView):
     queryset = Table.objects.all()
@@ -25,23 +28,140 @@ class TableView(viewsets.ViewSet, generics.ListCreateAPIView, generics.DestroyAP
     def get_queryset(self):
         return Table.objects.filter(active=True)
 
-class OrderView(viewsets.ViewSet, generics.ListCreateAPIView, generics.RetrieveAPIView):
+
+class OrderView(viewsets.ViewSet, generics.GenericAPIView):
     serializer_class = serializers.OrderSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    @action(methods=['get'], detail=False, url_path='chef-stats')
+    def chef_stats(self, request):
+        user = request.user
+        if user.role not in ['ADMIN', 'CHEF']:
+            return Response({"detail": "Bạn không có quyền xem thống kê này."}, status=403)
+
+        period = request.query_params.get('period', 'day')
+        specific_date = request.query_params.get('date')
+        now = timezone.now()
+
+        filter_kwargs = {}
+
+        if period == 'date' and specific_date:
+            try:
+                target_date = parse_date(specific_date)
+                if target_date:
+                    filter_kwargs['created_date__date'] = target_date
+            except ValueError:
+                pass
+        elif period == 'day':
+            filter_kwargs['created_date__date'] = now.date()
+        elif period == 'month':
+            filter_kwargs['created_date__year'] = now.year
+            filter_kwargs['created_date__month'] = now.month
+        elif period == 'year':
+            filter_kwargs['created_date__year'] = now.year
+
+        dish_filter = {f"order__{k}": v for k, v in filter_kwargs.items()}
+
+        dish_stats = OrderDetail.objects.filter(
+            order__status='COMPLETED',
+            **dish_filter
+        ).values('dish__name').annotate(
+            total_qty=Sum('quantity'),
+            total_revenue=Sum(F('quantity') * F('unit_price'))
+        ).order_by('-total_qty')
+
+        completed_orders = Order.objects.filter(
+            status='COMPLETED',
+            **filter_kwargs
+        )
+
+        if period == 'month':
+            time_stats = completed_orders.annotate(time=TruncMonth('created_date'))
+        elif period == 'week':
+            time_stats = completed_orders.annotate(time=TruncWeek('created_date'))
+        else:
+            time_stats = completed_orders.annotate(time=TruncDay('created_date'))
+
+        time_stats = time_stats.values('time').annotate(
+            order_count=Count('id'),
+            revenue=Sum('total_amount')
+        ).order_by('-time')
+
+        return Response({
+            "dish_stats": dish_stats,
+            "time_stats": time_stats
+        }, status=status.HTTP_200_OK)
+
     def get_queryset(self):
-        if getattr(self, 'swagger_fake_view', False):
-            return Order.objects.none()
-
         user = self.request.user
-        queryset = Order.objects.prefetch_related('details__dish').order_by('-created_date')
+        queryset = Order.objects.prefetch_related('details__dish').select_related('table').order_by('-created_date')
 
-        if user.role == User.Role.ADMIN:
-            return queryset.all()
-        if user.role == User.Role.CHEF:
-            return queryset.filter(details__dish__chef=user).distinct()
+        status_param = self.request.query_params.get('status')
+        if status_param:
+            queryset = queryset.filter(status=status_param)
+
+        period = self.request.query_params.get('period')
+        specific_date = self.request.query_params.get('date')
+        now = timezone.now()
+
+        if period == 'date' and specific_date:
+            try:
+                target_date = parse_date(specific_date)
+                if target_date:
+                    queryset = queryset.filter(created_date__date=target_date)
+            except ValueError:
+                pass
+        elif period == 'day':
+            queryset = queryset.filter(created_date__date=now.date())
+        elif period == 'month':
+            queryset = queryset.filter(created_date__year=now.year, created_date__month=now.month)
+        elif period == 'year':
+            queryset = queryset.filter(created_date__year=now.year)
+
+        if user.role == 'ADMIN':
+            return queryset
+
+        if user.role == 'CHEF':
+            return queryset.filter(
+                status__in=['PENDING', 'CONFIRMED', 'COOKING']
+            )
 
         return queryset.filter(user=user)
+
+    @action(methods=['post'], detail=True, url_path='take-order')
+    def take_order(self, request, pk=None):
+        order = self.get_object()
+        if order.status in ['PENDING', 'CONFIRMED']:
+            order.status = 'COOKING'
+            order.save()
+            return Response({"status": "COOKING", "detail": "Đang chế biến món ăn."}, status=status.HTTP_200_OK)
+        return Response({"detail": "Trạng thái không hợp lệ."}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['post'], detail=True, url_path='ready-order')
+    def ready_order(self, request, pk=None):
+        order = self.get_object()
+        if order.status == 'COOKING':
+            order.status = 'READY'
+            order.save()
+            return Response({"status": "READY", "detail": "Món ăn đã sẵn sàng phục vụ!"}, status=status.HTTP_200_OK)
+        return Response({"detail": "Đơn hàng chưa được tiếp nhận nấu."}, status=status.HTTP_400_BAD_REQUEST)
+
+    def create(self, request):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def list(self, request):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
 
     @action(methods=['get', 'patch'], detail=True, url_path='update-order')
     def update_order_info(self, request, pk=None):
@@ -85,6 +205,54 @@ class OrderView(viewsets.ViewSet, generics.ListCreateAPIView, generics.RetrieveA
 
         return Response({"detail": "Đơn hàng đã được xử lý, không thể hủy."}, status=400)
 
+    @action(methods=['get'], detail=False, url_path='admin-stats')
+    def admin_stats(self, request):
+        if request.user.role != 'ADMIN':
+            return Response({"detail": "Quyền này chỉ dành cho Admin"}, status=403)
+
+        period = request.query_params.get('period', 'day')
+        specific_date = request.query_params.get('date')
+        now = timezone.now()
+
+        revenue_query = Order.objects.filter(status='COMPLETED')
+        count_query = Order.objects.all()
+
+        if period == 'date' and specific_date:
+            try:
+                target_date = parse_date(specific_date)
+                if target_date:
+                    revenue_query = revenue_query.filter(created_date__date=target_date)
+                    count_query = count_query.filter(created_date__date=target_date)
+            except ValueError:
+                pass
+
+        elif period == 'day':
+            revenue_query = revenue_query.filter(created_date__date=now.date())
+            count_query = count_query.filter(created_date__date=now.date())
+
+        elif period == 'month':
+            revenue_query = revenue_query.filter(created_date__year=now.year, created_date__month=now.month)
+            count_query = count_query.filter(created_date__year=now.year, created_date__month=now.month)
+
+        elif period == 'year':
+            revenue_query = revenue_query.filter(created_date__year=now.year)
+            count_query = count_query.filter(created_date__year=now.year)
+
+        overall_revenue = revenue_query.aggregate(total=Sum('total_amount'))['total'] or 0
+        total_orders = count_query.count()
+        total_dishes = Dish.objects.count()
+
+        order_status_stats = count_query.values('status').annotate(count=Count('id'))
+
+        return Response({
+            "summary": {
+                "overall_revenue": overall_revenue,
+                "total_dishes": total_dishes,
+                "total_orders": total_orders
+            },
+            "order_status_stats": order_status_stats
+        })
+
 
 class DishView(viewsets.ViewSet, generics.ListAPIView, generics.RetrieveAPIView):
     queryset = Dish.objects.prefetch_related('tags').filter(active=True)
@@ -110,30 +278,23 @@ class DishView(viewsets.ViewSet, generics.ListAPIView, generics.RetrieveAPIView)
     def get_queryset(self):
         query = self.queryset
 
-        # 1. Tìm theo tên
         q = self.request.query_params.get('q')
         if q:
             query = query.filter(name__icontains=q)
 
-        # 2. Lọc theo danh mục
         cate_id = self.request.query_params.get('category_id')
         if cate_id:
             query = query.filter(category_id=cate_id)
 
-        # 3. Lọc theo giá
         min_price = self.request.query_params.get('min_price')
         max_price = self.request.query_params.get('max_price')
         if min_price: query = query.filter(price__gte=min_price)
         if max_price: query = query.filter(price__lte=max_price)
 
-        # --- BỔ SUNG THEO ĐỀ BÀI ---
-        # 4. Lọc theo đầu bếp (Chef)
         chef_id = self.request.query_params.get('chef_id')
         if chef_id:
             query = query.filter(chef_id=chef_id)
 
-        # 5. Sắp xếp (Thêm sắp xếp theo đánh giá - rating)
-        # Giả sử bạn muốn sort theo rating trung bình (cần annotate trước đó hoặc sort đơn giản)
         order_by = self.request.query_params.get('ordering')
         if order_by:
             if order_by == 'rating':
@@ -142,12 +303,11 @@ class DishView(viewsets.ViewSet, generics.ListAPIView, generics.RetrieveAPIView)
             else:
                 query = query.order_by(order_by)
 
-        max_time = self.request.query_params.get('max_time')  # Ví dụ: Tìm món làm dưới 30 phút
+        max_time = self.request.query_params.get('max_time')
         if max_time:
             query = query.filter(preparation_time__lte=max_time)
 
         return query
-
 
     @action(methods=['get', 'post', 'patch'], detail=True, url_path='reviews')
     def get_reviews(self, request, pk):
@@ -194,27 +354,30 @@ class DishView(viewsets.ViewSet, generics.ListAPIView, generics.RetrieveAPIView)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def destroy(self, request, pk=None):
-        dish = self.get_object()
-
-        dish.active = False
-        dish.save()
-        return Response({"detail": "Đã xóa món ăn."}, status=status.HTTP_204_NO_CONTENT)
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.active = False
+        instance.save()
+        return Response(
+            {"detail": "Đã ẩn món ăn thành công"},
+            status=status.HTTP_200_OK
+        )
 
     @action(methods=['post'], detail=False, url_path='compare')
     def compare_dishes(self, request):
-        # Body gửi lên: { "ids": [1, 5, 8] }
         ids = request.data.get('ids', [])
         dishes = Dish.objects.filter(id__in=ids, active=True)
         serializer = serializers.DishDetailSerializer(dishes, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class UserView(viewsets.ViewSet, generics.CreateAPIView):
     queryset = User.objects.filter(is_active=True)
     serializer_class = serializers.UserSerializer
     parser_classes = [parsers.MultiPartParser]
 
-    @action(methods=['get', 'patch'], url_path='current-user', detail=False, permission_classes=[permissions.IsAuthenticated])
+    @action(methods=['get', 'patch'], url_path='current-user', detail=False,
+            permission_classes=[permissions.IsAuthenticated])
     def get_current_user(self, request):
         user = request.user
         if request.method.__eq__('PATCH'):
@@ -224,46 +387,14 @@ class UserView(viewsets.ViewSet, generics.CreateAPIView):
 
         return Response(serializers.UserSerializer(user).data, status=status.HTTP_200_OK)
 
+
 class ReviewView(viewsets.ViewSet, generics.DestroyAPIView):
     queryset = Review.objects.filter(active=True)
     serializer_class = serializers.ReviewSerializer
     permission_classes = [perms.ReviewOwner]
 
+
 class TagView(viewsets.ViewSet, generics.ListAPIView):
     queryset = Tag.objects.all()
     serializer_class = serializers.TagSerializer
 
-class StatsView(viewsets.ViewSet):
-    @action(methods=['get'], detail=False, url_path='revenue')
-    def get_revenue_stats(self, request):
-        user = request.user
-        if user.role not in [User.Role.CHEF, User.Role.ADMIN]:
-            return Response({"detail": "Forbidden"}, status=403)
-
-        queryset = OrderDetail.objects.filter(order__status='COMPLETED')
-
-        # 1. Logic lọc theo User (Giữ nguyên)
-        if user.role == User.Role.CHEF:
-            queryset = queryset.filter(dish__chef=user)
-        elif user.role == User.Role.ADMIN:
-            chef_id = request.query_params.get('chef_id')
-            if chef_id:
-                queryset = queryset.filter(dish__chef_id=chef_id)
-
-        # 2. --- BỔ SUNG: Logic lọc theo thời gian (Ngày/Tháng/Năm) ---
-        # Param gửi lên: ?from_date=2024-01-01&to_date=2024-01-31
-        from_date = request.query_params.get('from_date')
-        to_date = request.query_params.get('to_date')
-
-        if from_date:
-            queryset = queryset.filter(created_date__date__gte=parse_date(from_date))
-        if to_date:
-            queryset = queryset.filter(created_date__date__lte=parse_date(to_date))
-
-        # 3. Thống kê (Giữ nguyên)
-        stats = queryset.values('dish__id', 'dish__name').annotate(
-            total_quantity=Sum('quantity'),
-            total_revenue=Sum(F('unit_price') * F('quantity'))
-        ).order_by('-total_revenue')
-
-        return Response(stats, status=200)

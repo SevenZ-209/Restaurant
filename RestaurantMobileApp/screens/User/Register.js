@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Alert, Image, ScrollView, ActivityIndicator } from "react-native";
-import { Button, HelperText, TextInput } from "react-native-paper";
+import { Button, HelperText, TextInput, RadioButton } from "react-native-paper";
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from "@react-navigation/native";
 
-// --- Import đúng đường dẫn ---
-import MyStyles from "../../styles/MyStyles";
 import Apis, { endpoints } from "../../utils/Apis";
 
+import styles from './RegisterStyles';
+
 const Register = () => {
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState({ role: 'CUSTOMER' });
     const [errMsg, setErrMsg] = useState("");
     const [loading, setLoading] = useState(false);
     const nav = useNavigation();
 
-    // Cấu hình các trường nhập liệu
     const info = [
         { label: "Tên", field: "first_name", icon: "text" },
         { label: "Họ và tên lót", field: "last_name", icon: "text" },
@@ -23,7 +22,6 @@ const Register = () => {
         { label: "Xác nhận mật khẩu", field: "confirm", icon: "eye", secureTextEntry: true }
     ];
 
-    // Hàm chọn ảnh đại diện từ thư viện
     const picker = async () => {
         const {granted} = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (granted) {
@@ -31,10 +29,9 @@ const Register = () => {
             if (!res.canceled)
                 setUser({...user, "avatar": res.assets[0]});
         } else
-            Alert.alert("Permission denied!");
+            Alert.alert("Cần cấp quyền truy cập ảnh!");
     }
 
-    // Kiểm tra dữ liệu nhập vào
     const validate = () => {
         if (!user.username || !user.password) {
              setErrMsg("Vui lòng nhập đầy đủ thông tin!");
@@ -48,14 +45,12 @@ const Register = () => {
         return true;
     }
 
-    // Xử lý đăng ký
     const register = async () => {
         if (validate()) {
             setLoading(true);
             try {
                 let form = new FormData();
 
-                // Duyệt qua object user để append vào FormData
                 for (let key in user) {
                     if (key !== 'confirm') {
                         if (key === 'avatar') {
@@ -70,24 +65,23 @@ const Register = () => {
                     }
                 }
 
-                console.info("Registering with:", user);
-
-                // Gọi API
                 let res = await Apis.post(endpoints['register'], form, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
+                    headers: { 'Content-Type': 'multipart/form-data' }
                 });
 
                 if (res.status === 201) {
-                    Alert.alert("Thành công", "Đăng ký tài khoản thành công! Vui lòng đăng nhập.");
+                    if (user.role === 'CHEF') {
+                        Alert.alert("Đăng ký thành công", "Tài khoản ĐẦU BẾP của bạn đang chờ Admin phê duyệt. Vui lòng quay lại sau!");
+                    } else {
+                        Alert.alert("Thành công", "Đăng ký thành công! Vui lòng đăng nhập.");
+                    }
                     nav.navigate('Login');
                 } else {
-                    setErrMsg("Đăng ký thất bại. Vui lòng kiểm tra lại!");
+                    setErrMsg("Đăng ký thất bại. Vui lòng thử lại!");
                 }
             } catch (ex) {
                 console.error(ex);
-                setErrMsg("Đã có lỗi xảy ra hoặc tên đăng nhập đã tồn tại!");
+                setErrMsg("Lỗi hệ thống hoặc tên đăng nhập đã tồn tại!");
             } finally {
                 setLoading(false);
             }
@@ -95,20 +89,18 @@ const Register = () => {
     }
 
     return (
-        <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
-            <View style={MyStyles.padding}>
-                <Text style={[MyStyles.subject, { textAlign: "center", marginTop: 20 }]}>ĐĂNG KÝ TÀI KHOẢN</Text>
+        <ScrollView style={styles.container}>
+            <View style={styles.content}>
+                <Text style={styles.title}>ĐĂNG KÝ TÀI KHOẢN</Text>
 
                 {errMsg !== "" && (
-                    <HelperText type="error" visible={true}>
-                        {errMsg}
-                    </HelperText>
+                    <HelperText type="error" visible={true}>{errMsg}</HelperText>
                 )}
 
                 {info.map(i => (
                     <TextInput 
                         key={i.field} 
-                        style={MyStyles.margin}
+                        style={styles.input}
                         label={i.label}
                         secureTextEntry={i.secureTextEntry}
                         mode="outlined"
@@ -118,26 +110,47 @@ const Register = () => {
                     />
                 ))}
 
-                <TouchableOpacity style={[MyStyles.margin, { flexDirection: "row", alignItems: "center" }]} onPress={picker}>
+                <View style={styles.roleContainer}>
+                    <Text style={styles.roleLabel}>Bạn đăng ký với vai trò:</Text>
+                    <RadioButton.Group onValueChange={value => setUser({ ...user, role: value })} value={user.role}>
+                        <View style={styles.radioGroup}>
+                            <View style={styles.radioItem}>
+                                <RadioButton value="CUSTOMER" color="#2196f3" />
+                                <Text>Khách hàng</Text>
+                            </View>
+                            <View style={styles.radioItem}>
+                                <RadioButton value="CHEF" color="#ff9800" />
+                                <Text>Đầu bếp</Text>
+                            </View>
+                        </View>
+                    </RadioButton.Group>
+                    {user.role === 'CHEF' && (
+                        <HelperText type="info" visible={true} style={styles.helperText}>
+                            * Tài khoản Đầu bếp cần Admin duyệt mới có thể đăng nhập.
+                        </HelperText>
+                    )}
+                </View>
+
+                <TouchableOpacity style={styles.avatarPicker} onPress={picker}>
                     <Button icon="camera" mode="text">Chọn ảnh đại diện</Button>
                 </TouchableOpacity>    
 
                 {user.avatar && (
-                    <View style={{ alignItems: "center" }}>
-                        <Image source={{ uri: user.avatar.uri }} style={{ width: 100, height: 100, borderRadius: 50, marginBottom: 10 }} />
+                    <View style={styles.avatarContainer}>
+                        <Image source={{ uri: user.avatar.uri }} style={styles.avatarImage} />
                     </View>
                 )}
 
                 {loading ? (
                     <ActivityIndicator size="large" color="blue" />
                 ) : (
-                    <Button mode="contained" onPress={register} style={{ marginTop: 10, padding: 5 }}>
+                    <Button mode="contained" onPress={register} style={styles.btnRegister}>
                         Đăng ký
                     </Button>
                 )}
                 
                 <TouchableOpacity onPress={() => nav.navigate("Login")}>
-                    <Text style={{ textAlign: "center", marginTop: 20, color: "blue" }}>Đã có tài khoản? Đăng nhập</Text>
+                    <Text style={styles.loginLink}>Đã có tài khoản? Đăng nhập</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>

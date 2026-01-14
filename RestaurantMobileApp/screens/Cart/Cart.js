@@ -1,9 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, ScrollView, Alert, Image, StyleSheet } from 'react-native';
-import { Button, Card, IconButton, Menu, List, Divider, Badge } from 'react-native-paper';
+import { View, Text, ScrollView, Alert, Image } from 'react-native';
+import { Button, Card, IconButton, Menu, List, Badge, Avatar } from 'react-native-paper';
 import { MyCartContext, MyUserContext } from '../../utils/MyContexts';
 import Apis, { authApi, endpoints } from '../../utils/Apis';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import styles from './CartStlyes';
 
 const Cart = ({ navigation }) => {
     const [cart, cartDispatch] = useContext(MyCartContext);
@@ -16,7 +18,6 @@ const Cart = ({ navigation }) => {
     const [menuVisible, setMenuVisible] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    // 1. Tải dữ liệu ban đầu (Tách biệt logic để tránh lỗi 404 làm sập App)
     const loadInitialData = async () => {
         const token = await AsyncStorage.getItem("token");
         const savedOrderId = await AsyncStorage.getItem("active_order_id");
@@ -26,7 +27,6 @@ const Cart = ({ navigation }) => {
                 setActiveOrderId(savedOrderId);
                 let orderRes = await authApi(token).get(`${endpoints['orders']}${savedOrderId}/`);
                 
-                // 👇 CHỈ XÓA ID NẾU ĐƠN ĐÃ THANH TOÁN HOẶC BỊ HỦY
                 if (orderRes.data.status === 'COMPLETED' || orderRes.data.status === 'CANCELLED') {
                     await AsyncStorage.removeItem("active_order_id");
                     setActiveOrderId(null);
@@ -48,7 +48,6 @@ const Cart = ({ navigation }) => {
             }
         }
     
-        // --- PHẦN 2: Tải danh sách bàn (Luôn chạy để hiện danh sách chọn)
         try {
             let res = await Apis.get(endpoints['tables']);
             const tableData = res.data.results || res.data;
@@ -62,11 +61,24 @@ const Cart = ({ navigation }) => {
         loadInitialData();
     }, [activeOrderId]);
 
-    // Tính toán tiền bạc
     const cartTotalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
     const grandTotal = (currentOrder?.total_amount || 0) + cartTotalPrice;
 
-    // 2. Xử lý logic Đặt món / Cập nhật / Đổi bàn
+    const removeItem = (item) => {
+        Alert.alert(
+            "Xóa món", 
+            `Bạn có chắc muốn xóa "${item.name}" khỏi danh sách chọn?`, 
+            [
+                { text: "Hủy", style: "cancel" },
+                { 
+                    text: "Xóa", 
+                    onPress: () => cartDispatch({ type: "remove", payload: item.id }), 
+                    style: "destructive"
+                }
+            ]
+        );
+    };
+
     const processOrder = async (isChangeTable = false, newTable = null) => {
         if (!user) {
             Alert.alert("Thông báo", "Vui lòng đăng nhập!");
@@ -85,7 +97,6 @@ const Cart = ({ navigation }) => {
             let res;
 
             if (activeOrderId) {
-                // TRƯỜNG HỢP: CẬP NHẬT (PATCH)
                 const patchData = {};
                 if (cart.length > 0) {
                     patchData["items"] = cart.map(item => ({ "dish": item.id, "quantity": item.quantity }));
@@ -96,7 +107,6 @@ const Cart = ({ navigation }) => {
 
                 res = await authApi(token).patch(`${endpoints['orders']}${activeOrderId}/update-order/`, patchData);
             } else {
-                // TRƯỜNG HỢP: TẠO MỚI (POST)
                 res = await authApi(token).post(endpoints['orders'], {
                     "items": cart.map(item => ({ "dish": item.id, "quantity": item.quantity })),
                     "table": tableToUse.id,
@@ -116,7 +126,6 @@ const Cart = ({ navigation }) => {
                 Alert.alert("Thành công", isChangeTable ? `Đã chuyển sang ${newTable.name}` : "Đã gửi yêu cầu tới bếp!");
             }
         } catch (ex) {
-            // Hiện thông báo lỗi chi tiết từ backend (như trùng giờ đặt bàn)
             let errorMsg = "Thao tác thất bại.";
             if (ex.response?.data?.table) errorMsg = ex.response.data.table;
             Alert.alert("Lỗi", Array.isArray(errorMsg) ? errorMsg[0] : errorMsg);
@@ -125,7 +134,6 @@ const Cart = ({ navigation }) => {
         }
     };
 
-    // 3. Thanh toán đơn hàng
     const handlePayment = async () => {
         Alert.alert("Xác nhận", "Bạn muốn thanh toán hóa đơn này?", [
             { text: "Hủy", style: "cancel" },
@@ -148,8 +156,7 @@ const Cart = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
-                {/* --- KHU VỰC VỊ TRÍ NGỒI --- */}
+            <ScrollView contentContainerStyle={styles.scrollContent}>
                 <Card style={[styles.card, activeOrderId ? styles.activeTableCard : {}]}>
                     <List.Item
                         title={activeOrderId ? "VỊ TRÍ BẠN ĐANG NGỒI" : "Chọn vị trí ngồi"}
@@ -189,30 +196,40 @@ const Cart = ({ navigation }) => {
                 </Card>
 
                 {currentOrder && (
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20, marginTop: 10, alignItems: 'center' }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Trạng thái đơn hàng:</Text>
-                        <Badge 
-                            size={30} 
-                            style={{ 
-                                backgroundColor: currentOrder.status === 'READY' ? '#2e7d32' : '#f57c00', // Xanh cho READY, Cam cho COOKING/PENDING
-                                color: 'white',
-                                paddingHorizontal: 10
+                    <Card style={[styles.card, styles.statusCard, { 
+                        borderColor: currentOrder.status === 'READY' ? '#4caf50' : '#ff9800',
+                        backgroundColor: currentOrder.status === 'READY' ? '#e8f5e9' : '#fff3e0'
+                    }]}>
+                        <List.Item
+                            title={currentOrder.status === 'READY' ? 'MÓN ĐÃ XONG' : 
+                                (currentOrder.status === 'COOKING' ? 'ĐANG CHẾ BIẾN' : 'ĐANG CHỜ BẾP')}
+                            titleStyle={{ 
+                                fontWeight: 'bold', 
+                                color: currentOrder.status === 'READY' ? '#2e7d32' : '#e65100', 
+                                fontSize: 16 
                             }}
-                        >
-                            {currentOrder.status === 'READY' ? 'MÓN ĐÃ XONG' : 
-                            currentOrder.status === 'COOKING' ? 'ĐANG CHẾ BIẾN' : 'ĐANG CHỜ BẾP'}
-                        </Badge>
-                    </View>
+                            description={currentOrder.status === 'READY' ? 'Chúc quý khách ngon miệng!' : 'Nhà bếp đang chuẩn bị...'}
+                            descriptionStyle={{ color: 'gray' }}
+                            left={props => (
+                                <Avatar.Icon 
+                                    {...props} 
+                                    size={45} 
+                                    icon={currentOrder.status === 'READY' ? "check-circle" : "chef-hat"} 
+                                    style={{ backgroundColor: currentOrder.status === 'READY' ? '#4caf50' : '#ff9800' }} 
+                                    color="white" 
+                                />
+                            )}
+                        />
+                    </Card>
                 )}
 
-                {/* --- DANH SÁCH MÓN ĐÃ ĐẶT (Lấy từ Server) --- */}
                 {currentOrder && currentOrder.details?.length > 0 && (
                     <Card style={[styles.card, styles.orderedCard]}>
                         <List.Subheader style={styles.orderedHeader}>CHI TIẾT MÓN ĐÃ ĐẶT</List.Subheader>
                         {currentOrder.details.map((d, index) => (
                             <List.Item
                                 key={index}
-                                title={d.dish_name} // Đảm bảo serializer đã trả về dish_name
+                                title={d.dish_name}
                                 description={`SL: ${d.quantity} | ${d.unit_price.toLocaleString()}đ`}
                                 left={p => <List.Icon {...p} icon="check-circle" color="#2e7d32" />}
                                 right={() => <Text style={styles.itemTotal}>{(d.quantity * d.unit_price).toLocaleString()}đ</Text>}
@@ -221,7 +238,6 @@ const Cart = ({ navigation }) => {
                     </Card>
                 )}
 
-                {/* --- GIỎ HÀNG (Món mới đang chọn) --- */}
                 <List.Subheader>MÓN MỚI ĐANG CHỌN</List.Subheader>
                 {cart.length === 0 ? (
                     <Text style={styles.emptyText}>Chưa có món mới nào được chọn.</Text>
@@ -230,22 +246,29 @@ const Cart = ({ navigation }) => {
                         <Card key={item.id} style={styles.itemCard}>
                             <View style={styles.row}>
                                 <Image source={{ uri: item.image }} style={styles.img} />
-                                <View style={{ flex: 1, marginLeft: 10 }}>
+                                <View style={styles.itemDetails}>
                                     <Text style={styles.bold}>{item.name}</Text>
                                     <Text style={styles.price}>{item.price.toLocaleString()}đ</Text>
                                 </View>
+                                
                                 <View style={styles.qtyBox}>
-                                    <IconButton icon="minus-circle-outline" onPress={() => cartDispatch({type:'dec', payload:item.id})} />
+                                    <IconButton icon="minus-circle-outline" size={20} onPress={() => cartDispatch({type:'dec', payload:item.id})} />
                                     <Text style={styles.qtyText}>{item.quantity}</Text>
-                                    <IconButton icon="plus-circle-outline" onPress={() => cartDispatch({type:'inc', payload:item.id})} />
+                                    <IconButton icon="plus-circle-outline" size={20} onPress={() => cartDispatch({type:'inc', payload:item.id})} />
                                 </View>
+                                
+                                <IconButton 
+                                    icon="delete" 
+                                    iconColor="red" 
+                                    size={20} 
+                                    onPress={() => removeItem(item)} 
+                                />
                             </View>
                         </Card>
                     ))
                 )}
             </ScrollView>
 
-            {/* --- FOOTER TỔNG TIỀN --- */}
             <View style={styles.footer}>
                 <View style={styles.summaryRow}>
                     <Text style={styles.totalLabel}>Tổng thanh toán:</Text>
@@ -253,11 +276,11 @@ const Cart = ({ navigation }) => {
                 </View>
                 <View style={styles.btnRow}>
                     <Button mode="contained" onPress={() => processOrder(false)} loading={loading}
-                        disabled={cart.length === 0 && !activeOrderId} style={{ flex: 2 }}>
+                        disabled={cart.length === 0 && !activeOrderId} style={styles.btnOrder}>
                         {activeOrderId ? "GỬI THÊM MÓN" : "ĐẶT BÀN & MÓN"}
                     </Button>
                     {activeOrderId && (
-                        <Button mode="outlined" onPress={handlePayment} style={{ flex: 1 }} textColor="red">
+                        <Button mode="outlined" onPress={handlePayment} style={styles.btnPay} textColor="red">
                             THANH TOÁN
                         </Button>
                     )}
@@ -266,27 +289,5 @@ const Cart = ({ navigation }) => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#f5f5f5' },
-    card: { margin: 8, elevation: 2 },
-    activeTableCard: { backgroundColor: '#e3f2fd', borderWidth: 1, borderColor: '#2196f3' },
-    orderedCard: { backgroundColor: '#f1f8e9' },
-    orderedHeader: { color: '#2e7d32', fontWeight: 'bold' },
-    itemCard: { marginHorizontal: 8, marginBottom: 6, padding: 8 },
-    row: { flexDirection: 'row', alignItems: 'center' },
-    img: { width: 50, height: 50, borderRadius: 6 },
-    bold: { fontWeight: 'bold' },
-    price: { color: '#d32f2f' },
-    qtyBox: { flexDirection: 'row', alignItems: 'center' },
-    qtyText: { fontWeight: 'bold', fontSize: 16 },
-    itemTotal: { alignSelf: 'center', fontWeight: 'bold' },
-    footer: { position: 'absolute', bottom: 0, left: 0, right: 0, padding: 15, backgroundColor: 'white', borderTopWidth: 1, borderColor: '#eee' },
-    summaryRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 },
-    totalLabel: { fontSize: 16 },
-    totalValue: { fontSize: 22, fontWeight: 'bold', color: '#d32f2f' },
-    btnRow: { flexDirection: 'row', gap: 8 },
-    emptyText: { textAlign: 'center', color: 'gray', marginTop: 10 }
-});
 
 export default Cart;

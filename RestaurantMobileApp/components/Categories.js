@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView } from "react-native";
 import { Chip } from "react-native-paper";
 import Apis, { endpoints } from "../utils/Apis"; 
+import CategoriesStyles from "../styles/CategoriesStyles";
 
 const Categories = ({ setCateId }) => {
     const [categories, setCategories] = useState([]);
@@ -25,22 +26,27 @@ const Categories = ({ setCateId }) => {
     }
 
     return (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ paddingHorizontal: 10 }}>
+        <ScrollView 
+            horizontal 
+            showsHorizontalScrollIndicator={false} 
+            style={CategoriesStyles.container}
+        >
             <Chip 
                 mode={!selectedId ? "outlined" : "flat"} 
                 onPress={() => handleSelect("")} 
-                style={styles.chip}
+                style={CategoriesStyles.chip}
                 icon="shape-outline"
                 selected={!selectedId}
             >
                 Tất cả
             </Chip>
+            
             {categories.map(c => (
                 <Chip 
                     key={c.id} 
                     mode={c.id === selectedId ? "outlined" : "flat"} 
                     onPress={() => handleSelect(c.id)}
-                    style={styles.chip}
+                    style={CategoriesStyles.chip}
                     selected={c.id === selectedId}
                 >
                     {c.name}
@@ -49,9 +55,5 @@ const Categories = ({ setCateId }) => {
         </ScrollView>
     );
 };
-
-const styles = StyleSheet.create({
-    chip: { marginRight: 5, marginBottom: 10 }
-});
 
 export default Categories;

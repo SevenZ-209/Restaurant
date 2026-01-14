@@ -35,7 +35,6 @@ const MyDishes = () => {
     const deleteDish = async (dishId) => {
         try {
             const token = await AsyncStorage.getItem("token");
-            console.log("Delete URL:", endpoints['dish-detail'](dishId));
             await authApi(token).delete(endpoints['dish-detail'](dishId));
             
             Alert.alert("Thành công", "Đã xóa món ăn!");

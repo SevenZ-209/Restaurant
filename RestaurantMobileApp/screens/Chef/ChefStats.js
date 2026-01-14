@@ -5,11 +5,9 @@ import { authApi, endpoints } from '../../utils/Apis';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-// 👇 Import file Style
 import styles from './ChefStatsStyles';
 
 const ChefStats = ({ navigation }) => {
-    // Thêm các state cho ngày tháng
     const [period, setPeriod] = useState('day'); 
     const [date, setDate] = useState(new Date());
     const [showPicker, setShowPicker] = useState(false);
@@ -22,7 +20,6 @@ const ChefStats = ({ navigation }) => {
         try {
             const token = await AsyncStorage.getItem("token");
             
-            // Logic URL giống Admin
             let url = `${endpoints['chef-stats']}?period=${period}`;
             
             if (period === 'date') {
@@ -52,7 +49,6 @@ const ChefStats = ({ navigation }) => {
         }
     };
 
-    // Tính tổng doanh thu trong khoảng thời gian đang xem để hiển thị nổi bật
     const totalRevenue = data?.time_stats?.reduce((sum, item) => sum + (item.revenue || 0), 0) || 0;
     const totalOrders = data?.time_stats?.reduce((sum, item) => sum + (item.order_count || 0), 0) || 0;
 
@@ -70,7 +66,6 @@ const ChefStats = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            {/* HEADER */}
             <View style={styles.header}>
                 <IconButton icon="arrow-left" size={24} onPress={() => navigation.goBack()} />
                 <Text style={styles.headerTitle}>Thống kê Bếp</Text>
@@ -78,9 +73,7 @@ const ChefStats = ({ navigation }) => {
             <Divider />
 
             <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-                
-                {/* 1. BỘ LỌC + CHỌN NGÀY */}
-                <View style={styles.filterContainer}>
+                 <View style={styles.filterContainer}>
                     <View style={{ flex: 1 }}>
                         <SegmentedButtons
                             value={period === 'date' ? null : period}
@@ -121,7 +114,6 @@ const ChefStats = ({ navigation }) => {
                     />
                 )}
 
-                {/* 2. CARD TỔNG QUAN (MỚI) */}
                 <Card style={styles.overviewCard}>
                     <Card.Content>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -139,7 +131,6 @@ const ChefStats = ({ navigation }) => {
                     </Card.Content>
                 </Card>
 
-                {/* 3. BẢNG CHI TIẾT DOANH THU */}
                 <Card style={styles.card}>
                     <View style={styles.cardHeader}>
                         <Avatar.Icon size={32} icon="clock-time-eight-outline" style={{ backgroundColor: '#e3f2fd' }} color="#1976d2" />
@@ -171,7 +162,6 @@ const ChefStats = ({ navigation }) => {
                     </DataTable>
                 </Card>
 
-                {/* 4. BẢNG MÓN BÁN CHẠY */}
                 <Card style={styles.card}>
                     <View style={styles.cardHeader}>
                         <Avatar.Icon size={32} icon="fire" style={{ backgroundColor: '#fff3e0' }} color="#ff9800" />

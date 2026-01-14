@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, ScrollView, Image, TouchableOpacity, Alert, useWindowDimensions } from "react-native";
+import { View, Text, ScrollView, Image, TouchableOpacity, Alert, useWindowDimensions, ToastAndroid, Platform } from "react-native";
 import { Button, Card, TextInput, Avatar, Divider, IconButton, ActivityIndicator } from "react-native-paper";
 import RenderHTML from "react-native-render-html";
 import moment from "moment";
@@ -28,11 +28,12 @@ const DishDetail = () => {
     const [content, setContent] = useState("");
     const [rating, setRating] = useState(5); 
     const [loading, setLoading] = useState(false);
+    
 
     useEffect(() => {
         const loadDish = async () => {
             try {
-                let res = await Apis.get(endpoints['dish-details'](dishId));
+                let res = await Apis.get(endpoints['dish-detail'](dishId));
                 setDish(res.data);
             } catch (ex) {
                 console.error("Lỗi load món:", ex);
@@ -69,9 +70,14 @@ const DishDetail = () => {
 
         cartDispatch({
             type: "add",
-            payload: dish 
+            payload: dish
         });
-        Alert.alert("Thành công", "Đã thêm món vào giỏ hàng!");
+
+        if (Platform.OS === 'android') {
+            ToastAndroid.show("Đã thêm món vào giỏ!", ToastAndroid.SHORT);
+        } else {
+            console.log("Đã thêm món"); 
+        }
     }
 
     const addReview = async () => {

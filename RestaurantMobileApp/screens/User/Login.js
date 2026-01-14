@@ -42,20 +42,17 @@ const Login = () => {
                 encodeURIComponent(key) + '=' + encodeURIComponent(details[key])
             ).join('&');
 
-            console.info("Đang gửi yêu cầu đăng nhập...");
-
             let res = await Apis.post(endpoints['login'], formBody, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
                 }
             });
 
-            console.info("Login thành công! Token:", res.data.access_token);
+            console.info("Login thành công! ");
 
             await AsyncStorage.setItem("token", res.data.access_token);
 
             let userRes = await authApi(res.data.access_token).get(endpoints['current-user']);
-            console.info("User Info:", userRes.data);
 
             dispatch({
                 "type": "login",

@@ -60,10 +60,11 @@ const Dishes = ({ cateId, keyword, ordering, toggleCompare, compareItems = [] })
                         <Card style={DishesStyles.card}>
                             <Card.Cover source={{ uri: d.image }} />
                             
+                            
                             <View style={DishesStyles.prepBadge}>
                                 <IconButton icon="clock-outline" size={16} iconColor="white" style={{margin:0}} />
                                 <Text style={DishesStyles.prepText}>
-                                    {d.preparation ? d.preparation : "15"} phút
+                                    {d.preparation_time ? d.preparation_time : "15"} phút
                                 </Text>
                             </View>
 

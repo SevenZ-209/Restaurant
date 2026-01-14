@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -52,6 +52,14 @@ const App = () => {
   const [user, dispatch] = useReducer(MyUserReducer, null);
 
   const [cart, cartDispatch] = useReducer(MyCartReducer, []);
+
+  useEffect(() => {
+    if (user === null) {
+
+      cartDispatch({ type: "clear" }); 
+    }
+  }, [user]);
+
 
   return (
     <MyUserContext.Provider value={[user, dispatch]}>

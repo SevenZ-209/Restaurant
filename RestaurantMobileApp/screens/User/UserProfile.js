@@ -3,9 +3,7 @@ import { View, Text, ScrollView, Alert } from "react-native";
 import { Button, Avatar, List, Divider } from "react-native-paper"; 
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-import { MyUserContext } from "../../utils/MyContexts"; 
-
+import { MyUserContext } from "../../utils/MyContexts";
 import styles from './UserProfileStyles';
 
 const UserProfile = () => {

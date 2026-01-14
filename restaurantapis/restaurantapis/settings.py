@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 from django.conf.global_settings import AUTH_USER_MODEL
@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-mi3idmiag(mxqp5g2&o!zh2m31x+y-3u#ley1cd9@1q00k$w%v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['lekhoa.pythonanywhere.com']
 
 
 # Application definition
@@ -46,28 +46,33 @@ INSTALLED_APPS = [
     'drf_yasg',
     'ckeditor',
     'rest_framework',
-    'oauth2_provider'
+    'oauth2_provider',
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('oauth2_provider.contrib.rest_framework.OAuth2Authentication',)
 }
 
+
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-cloudinary.config(cloud_name='dgpiotsmt',
-                    api_key='641336261286631',
-                    api_secret='9IM8MLY8s6Y4Pj6deAJZv6_FhJU',
-                    secure = True,
-                    api_proxy = "http://proxy.server:3128"
-                    )
+
+cloudinary.config(
+    cloud_name='dgpiotsmt',
+    api_key='641336261286631',
+    api_secret='9IM8MLY8s6Y4Pj6deAJZv6_FhJU',
+    secure=True,
+    api_proxy="http://proxy.server:3128"
+)
 
 CKEDITOR_UPLOAD_PATH = "images/ckeditors/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -101,10 +106,10 @@ WSGI_APPLICATION = 'restaurantapis.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'restaurant',
-        'USER': 'root',
-        'PASSWORD': '1',
-        'HOST': ''
+        'NAME': 'lekhoa$restaurant',
+        'USER': 'lekhoa',
+        'PASSWORD': '0328024018khoa',
+        'HOST': 'lekhoa.mysql.pythonanywhere-services.com'
     }
 }
 
@@ -156,6 +161,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 STATIC_URL = 'static/'
 
 JAZZMIN_SETTINGS = {
@@ -180,3 +187,5 @@ JAZZMIN_SETTINGS = {
 
     "show_ui_builder": True,
 }
+
+CORS_ALLOW_ALL_ORIGINS = True

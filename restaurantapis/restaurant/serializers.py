@@ -55,6 +55,7 @@ class DishDetailSerializer(DishSerializer):
         model = Dish
         fields = DishSerializer.Meta.fields + ['description','ingredients' , 'tags']
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
